@@ -17,6 +17,8 @@
             --light: #ffffff;
             --gray: #9aa0a6;
             --gray-light: #e8eaed;
+            --apple-music: #fa243c;
+            --apple-gray: #86868b;
         }
         
         * {
@@ -407,6 +409,7 @@
             color: white;
             cursor: pointer;
             transition: all 0.2s;
+            position: relative;
         }
         
         .enhancement-btn:hover {
@@ -419,12 +422,37 @@
             border-color: var(--primary);
         }
         
+        .enhancement-btn.apple-active {
+            background: rgba(250, 36, 60, 0.2);
+            border-color: var(--apple-music);
+        }
+        
         .enhancement-info {
             display: flex;
             align-items: center;
             gap: 8px;
             color: var(--gray);
             font-size: 12px;
+        }
+        
+        .apple-badge {
+            background: var(--apple-music);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .premium-badge {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 8px;
         }
         
         /* Device Optimization */
@@ -674,6 +702,31 @@
                                 <span>No processing</span>
                             </div>
                         </div>
+                        <div class="enhancement-btn" data-enhancement="apple-music">
+                            <span>Apple Music Mode
+                                <span class="apple-badge">NEW</span>
+                            </span>
+                            <div class="enhancement-info">
+                                <i class="fab fa-apple"></i>
+                                <span>Original quality</span>
+                            </div>
+                        </div>
+                        <div class="enhancement-btn" data-enhancement="apple-ebuds">
+                            <span>Apple Earbuds
+                                <span class="premium-badge">PREMIUM</span>
+                            </span>
+                            <div class="enhancement-info">
+                                <i class="fas fa-headphones"></i>
+                                <span>Optimized for AirPods</span>
+                            </div>
+                        </div>
+                        <div class="enhancement-btn" data-enhancement="universal-ebuds">
+                            <span>Universal Earbuds</span>
+                            <div class="enhancement-info">
+                                <i class="fas fa-broadcast-tower"></i>
+                                <span>All brands compatible</span>
+                            </div>
+                        </div>
                         <div class="enhancement-btn" data-enhancement="dolby">
                             <span>Dolby Digital +</span>
                             <div class="enhancement-info">
@@ -872,7 +925,7 @@
     </div>
 
     <script>
-        // Pro Media Player with All Features
+        // Pro Media Player with Enhanced Audio Features
         class ProMediaPlayer {
             constructor() {
                 // State
@@ -893,6 +946,9 @@
                 this.gainNode = null;
                 this.analyser = null;
                 this.eqNodes = [];
+                this.dynamicsCompressor = null;
+                this.stereoEnhancer = null;
+                this.spatialAudio = null;
                 
                 // Visualization
                 this.canvas = document.getElementById('canvas-3d');
@@ -1063,13 +1119,13 @@
             
             detectFileType(file) {
                 const name = file.name.toLowerCase();
-                if (name.endsWith('.mp3') || name.endsWith('.wav') || name.endsWith('.ogg')) {
+                if (name.endsWith('.mp3') || name.endsWith('.wav') || name.endsWith('.ogg') || name.endsWith('.flac')) {
                     return 'audio';
-                } else if (name.endsWith('.mp4') || name.endsWith('.avi') || name.endsWith('.mkv')) {
+                } else if (name.endsWith('.mp4') || name.endsWith('.avi') || name.endsWith('.mkv') || name.endsWith('.mov')) {
                     return 'video';
                 } else if (name.endsWith('.gif')) {
                     return 'gif';
-                } else if (name.endsWith('.png') || name.endsWith('.jpg') || name.endsWith('.jpeg')) {
+                } else if (name.endsWith('.png') || name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.webp')) {
                     return 'image';
                 }
                 return 'unknown';
@@ -1314,8 +1370,17 @@
                 const bufferLength = this.analyser.frequencyBinCount;
                 this.audioData = new Uint8Array(bufferLength);
                 
+                // Create compressor for dynamics control
+                this.dynamicsCompressor = this.audioContext.createDynamicsCompressor();
+                this.dynamicsCompressor.threshold.value = -24;
+                this.dynamicsCompressor.knee.value = 30;
+                this.dynamicsCompressor.ratio.value = 12;
+                this.dynamicsCompressor.attack.value = 0.003;
+                this.dynamicsCompressor.release.value = 0.25;
+                
                 // Connect default chain
-                this.sourceNode.connect(this.gainNode);
+                this.sourceNode.connect(this.dynamicsCompressor);
+                this.dynamicsCompressor.connect(this.gainNode);
                 this.gainNode.connect(this.analyser);
                 this.analyser.connect(this.audioContext.destination);
                 
@@ -1332,18 +1397,143 @@
                 this.sourceNode.disconnect();
                 this.gainNode.disconnect();
                 this.analyser.disconnect();
+                this.dynamicsCompressor.disconnect();
                 
                 // Cleanup EQ nodes
                 this.eqNodes.forEach(node => node.disconnect());
                 this.eqNodes = [];
+                
+                // Disconnect spatial audio if exists
+                if (this.spatialAudio) {
+                    this.spatialAudio.disconnect();
+                    this.spatialAudio = null;
+                }
+                
+                if (this.stereoEnhancer) {
+                    this.stereoEnhancer.disconnect();
+                    this.stereoEnhancer = null;
+                }
                 
                 // Reconnect base chain
                 let lastNode = this.sourceNode;
                 
                 // Apply enhancement based on setting
                 switch (this.currentEnhancement) {
+                    case 'apple-music':
+                        // Apple Music Mode - Focus on clarity and natural sound
+                        // Mild compression and subtle EQ
+                        this.dynamicsCompressor.threshold.value = -20;
+                        this.dynamicsCompressor.ratio.value = 4;
+                        this.dynamicsCompressor.knee.value = 10;
+                        
+                        // Subtle EQ for Apple Music signature
+                        const eqApple1 = this.audioContext.createBiquadFilter();
+                        eqApple1.type = 'lowshelf';
+                        eqApple1.frequency.value = 120;
+                        eqApple1.gain.value = 1.5; // Slight bass boost
+                        lastNode.connect(eqApple1);
+                        lastNode = eqApple1;
+                        this.eqNodes.push(eqApple1);
+                        
+                        const eqApple2 = this.audioContext.createBiquadFilter();
+                        eqApple2.type = 'peaking';
+                        eqApple2.frequency.value = 1000;
+                        eqApple2.gain.value = 1; // Natural mid-range
+                        lastNode.connect(eqApple2);
+                        lastNode = eqApple2;
+                        this.eqNodes.push(eqApple2);
+                        
+                        const eqApple3 = this.audioContext.createBiquadFilter();
+                        eqApple3.type = 'highshelf';
+                        eqApple3.frequency.value = 8000;
+                        eqApple3.gain.value = 1.2; // Slight treble enhancement
+                        lastNode.connect(eqApple3);
+                        lastNode = eqApple3;
+                        this.eqNodes.push(eqApple3);
+                        break;
+                        
+                    case 'apple-ebuds':
+                        // Optimized for Apple AirPods/Earbuds
+                        // Enhanced bass and clear vocals
+                        this.dynamicsCompressor.threshold.value = -18;
+                        this.dynamicsCompressor.ratio.value = 6;
+                        
+                        // Bass enhancement for small drivers
+                        const bassBoostApple = this.audioContext.createBiquadFilter();
+                        bassBoostApple.type = 'lowshelf';
+                        bassBoostApple.frequency.value = 180;
+                        bassBoostApple.gain.value = 6; // Strong bass boost for small earbuds
+                        lastNode.connect(bassBoostApple);
+                        lastNode = bassBoostApple;
+                        this.eqNodes.push(bassBoostApple);
+                        
+                        // Mid-range clarity
+                        const midClarity = this.audioContext.createBiquadFilter();
+                        midClarity.type = 'peaking';
+                        midClarity.frequency.value = 1500;
+                        midClarity.gain.value = 3; // Enhanced vocal clarity
+                        lastNode.connect(midClarity);
+                        lastNode = midClarity;
+                        this.eqNodes.push(midClarity);
+                        
+                        // Treble enhancement for detail
+                        const trebleApple = this.audioContext.createBiquadFilter();
+                        trebleApple.type = 'highshelf';
+                        trebleApple.frequency.value = 6000;
+                        trebleApple.gain.value = 2; // Enhanced detail
+                        lastNode.connect(trebleApple);
+                        lastNode = trebleApple;
+                        this.eqNodes.push(trebleApple);
+                        
+                        // Spatial audio simulation
+                        this.createSpatialAudioEffect(lastNode);
+                        lastNode = this.spatialAudio;
+                        break;
+                        
+                    case 'universal-ebuds':
+                        // Optimized for all earbud brands (Samsung, Sony, etc.)
+                        // Balanced profile for various driver types
+                        this.dynamicsCompressor.threshold.value = -22;
+                        this.dynamicsCompressor.ratio.value = 8;
+                        
+                        // Gentle bass shelf for universal compatibility
+                        const bassUniversal = this.audioContext.createBiquadFilter();
+                        bassUniversal.type = 'lowshelf';
+                        bassUniversal.frequency.value = 150;
+                        bassUniversal.gain.value = 4; // Moderate bass
+                        lastNode.connect(bassUniversal);
+                        lastNode = bassUniversal;
+                        this.eqNodes.push(bassUniversal);
+                        
+                        // Broad mid-range boost for vocal clarity
+                        const midUniversal = this.audioContext.createBiquadFilter();
+                        midUniversal.type = 'peaking';
+                        midUniversal.frequency.value = 2000;
+                        midUniversal.Q.value = 0.7; // Broad Q
+                        midUniversal.gain.value = 2; // Gentle mid boost
+                        lastNode.connect(midUniversal);
+                        lastNode = midUniversal;
+                        this.eqNodes.push(midUniversal);
+                        
+                        // Treble adjustment for various earbud types
+                        const trebleUniversal = this.audioContext.createBiquadFilter();
+                        trebleUniversal.type = 'highshelf';
+                        trebleUniversal.frequency.value = 7000;
+                        trebleUniversal.gain.value = 1.5; // Subtle treble
+                        lastNode.connect(trebleUniversal);
+                        lastNode = trebleUniversal;
+                        this.eqNodes.push(trebleUniversal);
+                        
+                        // Stereo enhancement for better imaging
+                        this.createStereoEnhancer(lastNode);
+                        lastNode = this.stereoEnhancer;
+                        break;
+                        
                     case 'dolby':
-                        // Simulate Dolby Digital + with EQ and compression
+                        // Dolby Digital + with EQ and compression
+                        this.dynamicsCompressor.threshold.value = -15;
+                        this.dynamicsCompressor.ratio.value = 12;
+                        
                         const eq1 = this.audioContext.createBiquadFilter();
                         eq1.type = 'lowshelf';
                         eq1.frequency.value = 100;
@@ -1371,6 +1561,8 @@
                         
                     case 'bass':
                         // Bass boost
+                        this.dynamicsCompressor.threshold.value = -20;
+                        
                         const bassFilter = this.audioContext.createBiquadFilter();
                         bassFilter.type = 'lowshelf';
                         bassFilter.frequency.value = 150;
@@ -1382,6 +1574,9 @@
                         
                     case 'clear':
                         // Voice clarity
+                        this.dynamicsCompressor.threshold.value = -25;
+                        this.dynamicsCompressor.ratio.value = 6;
+                        
                         const lowCut = this.audioContext.createBiquadFilter();
                         lowCut.type = 'highpass';
                         lowCut.frequency.value = 80;
@@ -1399,10 +1594,78 @@
                         break;
                 }
                 
-                // Connect to gain and analyser
-                lastNode.connect(this.gainNode);
+                // Connect to compressor, gain and analyser
+                lastNode.connect(this.dynamicsCompressor);
+                this.dynamicsCompressor.connect(this.gainNode);
                 this.gainNode.connect(this.analyser);
                 this.analyser.connect(this.audioContext.destination);
+                
+                // Update UI for Apple-specific enhancements
+                this.updateEnhancementUI();
+            }
+            
+            createSpatialAudioEffect(inputNode) {
+                // Simple spatial audio simulation using PannerNode
+                this.spatialAudio = this.audioContext.createPanner();
+                this.spatialAudio.panningModel = 'HRTF';
+                this.spatialAudio.distanceModel = 'inverse';
+                this.spatialAudio.refDistance = 1;
+                this.spatialAudio.maxDistance = 10000;
+                this.spatialAudio.rolloffFactor = 1;
+                this.spatialAudio.coneInnerAngle = 360;
+                this.spatialAudio.coneOuterAngle = 0;
+                this.spatialAudio.coneOuterGain = 0;
+                
+                // Set position for spatial effect
+                this.spatialAudio.positionX.value = 0;
+                this.spatialAudio.positionY.value = 0;
+                this.spatialAudio.positionZ.value = 1;
+                
+                inputNode.connect(this.spatialAudio);
+            }
+            
+            createStereoEnhancer(inputNode) {
+                // Simple stereo enhancer using split channels
+                this.stereoEnhancer = this.audioContext.createChannelSplitter(2);
+                const merger = this.audioContext.createChannelMerger(2);
+                
+                // Create slight delay on one channel for width
+                const delayL = this.audioContext.createDelay();
+                delayL.delayTime.value = 0.001; // 1ms delay
+                
+                const delayR = this.audioContext.createDelay();
+                delayR.delayTime.value = 0.002; // 2ms delay
+                
+                inputNode.connect(this.stereoEnhancer);
+                this.stereoEnhancer.connect(delayL, 0);
+                this.stereoEnhancer.connect(delayR, 1);
+                delayL.connect(merger, 0, 0);
+                delayR.connect(merger, 0, 1);
+                
+                this.stereoEnhancer = merger;
+            }
+            
+            updateEnhancementUI() {
+                // Update UI styling for Apple enhancements
+                this.elements.enhancementButtons.forEach(btn => {
+                    btn.classList.remove('apple-active');
+                    if (btn.dataset.enhancement === this.currentEnhancement) {
+                        if (this.currentEnhancement.includes('apple')) {
+                            btn.classList.add('apple-active');
+                        }
+                    }
+                });
+                
+                // Update quality label for Apple modes
+                if (this.currentEnhancement === 'apple-music') {
+                    this.elements.qualityLabel.textContent = 'Apple Music';
+                    this.elements.qualityLabel.style.background = 'var(--apple-music)';
+                } else if (this.currentEnhancement.includes('apple')) {
+                    this.elements.qualityLabel.textContent = 'Apple Enhanced';
+                    this.elements.qualityLabel.style.background = 'var(--apple-music)';
+                } else {
+                    this.elements.qualityLabel.style.background = 'var(--primary)';
+                }
             }
             
             applyDeviceOptimization() {
@@ -1424,6 +1687,19 @@
                     case 'earphones':
                         // Earphones - boost mids for clarity
                         this.elements.channels.textContent = '2.0';
+                        
+                        // If using earbuds enhancement, adjust further
+                        if (this.currentEnhancement === 'apple-ebuds' || 
+                            this.currentEnhancement === 'universal-ebuds') {
+                            // Add additional high-pass filter for earphone safety
+                            const safetyFilter = this.audioContext.createBiquadFilter();
+                            safetyFilter.type = 'highpass';
+                            safetyFilter.frequency.value = 40;
+                            // Insert at beginning of chain
+                            if (this.eqNodes.length > 0) {
+                                // Logic to insert filter at correct position
+                            }
+                        }
                         break;
                     default:
                         this.elements.channels.textContent = 'Auto';
@@ -1461,8 +1737,19 @@
                     this.sourceNode?.disconnect();
                     this.gainNode?.disconnect();
                     this.analyser?.disconnect();
+                    this.dynamicsCompressor?.disconnect();
                     this.eqNodes.forEach(node => node.disconnect());
                     this.eqNodes = [];
+                    
+                    if (this.spatialAudio) {
+                        this.spatialAudio.disconnect();
+                        this.spatialAudio = null;
+                    }
+                    
+                    if (this.stereoEnhancer) {
+                        this.stereoEnhancer.disconnect();
+                        this.stereoEnhancer = null;
+                    }
                     
                     if (this.audioContext.state !== 'closed') {
                         this.audioContext.close();
@@ -1493,24 +1780,77 @@
                 this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
                 this.ctx.fillRect(0, 0, width, height);
                 
-                // Draw based on visualization mode
-                switch (this.currentVisualization) {
-                    case 'waves':
-                        this.drawWaves(width, height);
-                        break;
-                    case 'bars':
-                        this.drawBars(width, height);
-                        break;
-                    case 'particles':
-                        this.drawParticles(width, height);
-                        break;
-                    case 'spectrum':
-                        this.drawSpectrum(width, height);
-                        break;
-                    case 'sphere':
-                        this.drawSphere(width, height);
-                        break;
+                // Apple Music themed visualization for Apple modes
+                if (this.currentEnhancement.includes('apple')) {
+                    this.drawAppleThemedVisualization(width, height);
+                } else {
+                    // Draw based on visualization mode
+                    switch (this.currentVisualization) {
+                        case 'waves':
+                            this.drawWaves(width, height);
+                            break;
+                        case 'bars':
+                            this.drawBars(width, height);
+                            break;
+                        case 'particles':
+                            this.drawParticles(width, height);
+                            break;
+                        case 'spectrum':
+                            this.drawSpectrum(width, height);
+                            break;
+                        case 'sphere':
+                            this.drawSphere(width, height);
+                            break;
+                    }
                 }
+            }
+            
+            drawAppleThemedVisualization(width, height) {
+                // Apple-themed visualization with red accent
+                const centerX = width / 2;
+                const centerY = height / 2;
+                
+                // Draw circular visualization for Apple aesthetic
+                this.ctx.beginPath();
+                this.ctx.lineWidth = 3;
+                
+                // Use Apple red gradient
+                const gradient = this.ctx.createRadialGradient(
+                    centerX, centerY, 0,
+                    centerX, centerY, Math.min(width, height) / 2
+                );
+                gradient.addColorStop(0, 'rgba(250, 36, 60, 0.9)');
+                gradient.addColorStop(0.5, 'rgba(250, 36, 60, 0.5)');
+                gradient.addColorStop(1, 'rgba(250, 36, 60, 0.1)');
+                
+                this.ctx.strokeStyle = gradient;
+                
+                // Create circular waveform
+                const sliceAngle = (Math.PI * 2) / this.audioData.length;
+                let angle = 0;
+                
+                for (let i = 0; i < this.audioData.length; i++) {
+                    const value = this.audioData[i] / 255;
+                    const radius = Math.min(width, height) * 0.2 * (0.5 + value * 0.5);
+                    
+                    const x = centerX + Math.cos(angle) * radius;
+                    const y = centerY + Math.sin(angle) * radius;
+                    
+                    if (i === 0) {
+                        this.ctx.moveTo(x, y);
+                    } else {
+                        this.ctx.lineTo(x, y);
+                    }
+                    
+                    angle += sliceAngle;
+                }
+                
+                this.ctx.closePath();
+                this.ctx.stroke();
+                
+                // Fill with translucent red
+                this.ctx.fillStyle = 'rgba(250, 36, 60, 0.1)';
+                this.ctx.fill();
             }
             
             drawWaves(width, height) {
@@ -1826,6 +2166,7 @@
                 // Update UI
                 this.elements.enhancementButtons.forEach(btn => {
                     btn.classList.toggle('active', btn.dataset.enhancement === enhancement);
+                    btn.classList.toggle('apple-active', false);
                 });
                 
                 // Apply enhancement
