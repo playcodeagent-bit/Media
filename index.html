@@ -3,2223 +3,1334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Media Player | 1080p, Dolby Digital, 3D Visualizations</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Material Pro Media Player | Real DSP & M3 Dark</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
     <style>
+        /* Google Material Design 3 - Dark Theme Palette */
         :root {
-            --primary: #4285f4;
-            --primary-dark: #3367d6;
-            --secondary: #34a853;
-            --accent: #ea4335;
-            --warning: #fbbc05;
-            --dark: #202124;
-            --dark-light: #303134;
-            --light: #ffffff;
-            --gray: #9aa0a6;
-            --gray-light: #e8eaed;
-            --apple-music: #fa243c;
-            --apple-gray: #86868b;
+            --md-sys-color-background: #141218;
+            --md-sys-color-on-background: #E6E0E9;
+            --md-sys-color-surface: #1D1B20;
+            --md-sys-color-surface-container: #211F26;
+            --md-sys-color-surface-container-high: #2B2930;
+            --md-sys-color-surface-variant: #49454F;
+            --md-sys-color-on-surface: #E6E0E9;
+            --md-sys-color-on-surface-variant: #CAC4D0;
+            --md-sys-color-primary: #D0BCFF;
+            --md-sys-color-on-primary: #381E72;
+            --md-sys-color-primary-container: #4F378B;
+            --md-sys-color-on-primary-container: #EADDFF;
+            --md-sys-color-secondary: #CCC2DC;
+            --md-sys-color-secondary-container: #4A4458;
+            --md-sys-color-tertiary: #EFB8C8;
+            --md-sys-color-outline: #938F99;
+            
+            /* Branding Colors */
+            --apple-red: #FA243C;
+            --apple-red-container: rgba(250, 36, 60, 0.15);
+            --dolby-blue: #00A1DF;
+            
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-full: 9999px;
+            
+            --transition-standard: 0.2s cubic-bezier(0.2, 0, 0, 1);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Google Sans', Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
-        
+
         body {
-            font-family: 'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--dark);
-            color: var(--light);
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
-        
-        /* Google Material Design */
+
+        .material-symbols-rounded {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 24px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            flex: 1;
         }
-        
-        /* Header - Google Style */
-        .header {
+
+        /* --- Header M3 Style --- */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 16px 24px;
-            background: var(--dark-light);
-            border-radius: 12px;
-            margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            background-color: var(--md-sys-color-surface-container);
+            border-radius: var(--border-radius-full);
         }
-        
-        .logo {
+
+        .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
-        
+
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 8px;
+            width: 48px;
+            height: 48px;
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            border-radius: var(--border-radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 20px;
+            font-size: 28px;
         }
-        
-        .logo-text {
+
+        .logo-text h1 {
             font-size: 22px;
             font-weight: 500;
+            letter-spacing: 0.1px;
         }
-        
-        .user-actions {
-            display: flex;
-            gap: 12px;
+
+        .logo-text p {
+            font-size: 14px;
+            color: var(--md-sys-color-on-surface-variant);
         }
-        
-        .btn {
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
+
+        .m3-btn {
+            display: inline-flex;
             align-items: center;
             gap: 8px;
+            padding: 10px 24px;
+            border-radius: var(--border-radius-full);
+            border: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color var(--transition-standard), transform var(--transition-standard);
         }
-        
-        .btn-primary {
-            background: var(--primary);
-            color: white;
+
+        .m3-btn:active {
+            transform: scale(0.98);
         }
-        
-        .btn-secondary {
-            background: var(--dark);
-            color: var(--light);
-            border: 1px solid var(--gray);
+
+        .btn-filled {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
         }
-        
-        .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+        .btn-filled:hover {
+            background-color: #EADDFF; /* Lighter tint for hover */
         }
-        
-        /* Main Layout */
-        .main-content {
+
+        .btn-tonal {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .btn-tonal:hover {
+            background-color: #5d566e;
+        }
+
+        /* --- Layout Grid --- */
+        .main-grid {
             display: grid;
-            grid-template-columns: 300px 1fr;
+            grid-template-columns: 360px 1fr;
             gap: 24px;
-            margin-bottom: 24px;
+            flex: 1;
         }
-        
-        /* Player Card */
-        .player-card {
-            background: var(--dark-light);
-            border-radius: 16px;
+
+        /* --- Sidebar & Cards --- */
+        .m3-card {
+            background-color: var(--md-sys-color-surface-container);
+            border-radius: var(--border-radius-lg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--md-sys-color-primary);
+        }
+
+        /* Upload Area */
+        .upload-zone {
+            border: 2px dashed var(--md-sys-color-outline);
+            border-radius: var(--border-radius-md);
+            padding: 32px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-standard);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--md-sys-color-primary);
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
+
+        .upload-zone .material-symbols-rounded {
+            font-size: 40px;
+            margin-bottom: 8px;
+            color: inherit;
+        }
+
+        /* File List */
+        .file-list {
+            max-height: 250px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-right: 4px;
+        }
+
+        .file-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .file-list::-webkit-scrollbar-thumb {
+            background: var(--md-sys-color-surface-variant);
+            border-radius: var(--border-radius-full);
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 16px;
+            border-radius: var(--border-radius-md);
+            background: var(--md-sys-color-surface-container-high);
+            cursor: pointer;
+            transition: background var(--transition-standard);
+        }
+
+        .file-item:hover {
+            background: var(--md-sys-color-surface-variant);
+        }
+
+        .file-item.active {
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
+
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius-sm);
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-details {
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            grid-column: 2;
+            flex: 1;
         }
-        
-        /* Media Display with Fullscreen Capability */
-        .media-display-container {
+
+        .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-meta {
+            font-size: 12px;
+            color: var(--md-sys-color-on-surface-variant);
+            margin-top: 4px;
+        }
+        .file-item.active .file-meta {
+            color: rgba(234, 221, 255, 0.8);
+        }
+
+        /* Lists & Options */
+        .option-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-radius: var(--border-radius-md);
+            background: transparent;
+            border: 1px solid var(--md-sys-color-outline);
+            color: var(--md-sys-color-on-surface);
+            cursor: pointer;
+            transition: all var(--transition-standard);
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            background: var(--md-sys-color-surface-container-high);
+        }
+
+        .option-btn.active {
+            background: var(--md-sys-color-primary-container);
+            border-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
+
+        .option-btn.apple-active {
+            background: var(--apple-red-container);
+            border-color: var(--apple-red);
+            color: #fff;
+        }
+
+        .option-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: var(--border-radius-full);
+            text-transform: uppercase;
+        }
+        .badge-apple { background: var(--apple-red); color: white; }
+        .badge-pro { background: #FFD700; color: #000; }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .stat-box {
+            background: var(--md-sys-color-surface-container-high);
+            padding: 16px;
+            border-radius: var(--border-radius-md);
+            text-align: center;
+        }
+        .stat-val { font-size: 20px; font-weight: 500; color: var(--md-sys-color-primary); }
+        .stat-lbl { font-size: 12px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px; }
+
+        /* --- Main Player Area --- */
+        .player-area {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .display-container {
             position: relative;
-            width: 100%;
-            height: 500px;
             background: #000;
+            border-radius: var(--border-radius-lg);
             overflow: hidden;
+            flex: 1;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
         }
-        
-        #media-display {
+
+        #media-video, #media-image {
             width: 100%;
             height: 100%;
             object-fit: contain;
-        }
-        
-        .fullscreen-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 40px;
-            height: 40px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            border: none;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
+            z-index: 5;
         }
-        
-        .fullscreen-btn:hover {
-            background: rgba(0,0,0,0.7);
-        }
-        
-        /* Visualization Options */
-        .visualization-container {
+
+        #visualizer-canvas {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 1;
         }
-        
-        #canvas-3d {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .visualization-selector {
+
+        .hidden { display: none !important; }
+
+        .viz-controls {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0,0,0,0.7);
-            border-radius: 8px;
-            padding: 10px;
-            display: flex;
-            gap: 10px;
+            bottom: 24px;
+            left: 24px;
             z-index: 10;
+            display: flex;
+            gap: 8px;
+            background: rgba(0,0,0,0.6);
+            padding: 8px;
+            border-radius: var(--border-radius-full);
+            backdrop-filter: blur(10px);
         }
-        
-        .viz-btn {
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.1);
+
+        .viz-tab {
+            padding: 6px 16px;
+            border-radius: var(--border-radius-full);
             border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
             font-size: 12px;
+            cursor: pointer;
+            transition: all var(--transition-standard);
         }
-        
-        .viz-btn.active {
-            background: var(--primary);
+
+        .viz-tab.active {
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
         }
-        
-        /* Player Controls */
-        .player-controls {
+
+        /* --- Player Controls Bar --- */
+        .control-bar {
+            background: var(--md-sys-color-surface-container);
+            border-radius: var(--border-radius-lg);
             padding: 24px;
-            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
-        
-        .control-top {
+
+        .track-info-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
         }
-        
-        .now-playing {
-            flex: 1;
-        }
-        
-        .track-title {
-            font-size: 18px;
+
+        .track-titles h2 { font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+        .track-titles p { color: var(--md-sys-color-on-surface-variant); font-size: 14px; }
+
+        .quality-tag {
+            background: rgba(208, 188, 255, 0.15);
+            color: var(--md-sys-color-primary);
+            padding: 6px 16px;
+            border-radius: var(--border-radius-full);
             font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .track-info {
-            color: var(--gray);
             font-size: 14px;
             display: flex;
-            gap: 16px;
-        }
-        
-        .quality-badge {
-            display: inline-flex;
             align-items: center;
-            gap: 4px;
-            background: var(--primary);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
+            gap: 6px;
         }
-        
-        .bitrate-selector {
+
+        /* Progress Bar */
+        .progress-wrapper {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.05);
-            padding: 8px 16px;
-            border-radius: 20px;
+            flex-direction: column;
+            gap: 8px;
         }
-        
-        .bitrate-btn {
-            padding: 4px 12px;
-            background: transparent;
-            border: 1px solid var(--gray);
-            border-radius: 12px;
-            color: var(--gray);
+
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            background: var(--md-sys-color-surface-container-high);
+            border-radius: var(--border-radius-full);
             cursor: pointer;
-            font-size: 12px;
-        }
-        
-        .bitrate-btn.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
-        
-        .progress-container {
-            margin: 20px 0;
-        }
-        
-        .progress-bar {
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
-            cursor: pointer;
-            margin-bottom: 8px;
             position: relative;
+            overflow: hidden;
         }
-        
-        .progress {
+
+        .progress-fill {
+            position: absolute;
+            top: 0; left: 0;
             height: 100%;
-            background: var(--primary);
-            border-radius: 2px;
+            background: var(--md-sys-color-primary);
             width: 0%;
-            transition: width 0.1s;
+            border-radius: var(--border-radius-full);
+            pointer-events: none;
         }
-        
-        .progress-time {
+
+        .time-row {
             display: flex;
             justify-content: space-between;
             font-size: 12px;
-            color: var(--gray);
+            color: var(--md-sys-color-on-surface-variant);
         }
-        
-        .control-buttons {
+
+        /* Main Buttons */
+        .playback-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .center-controls {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .icon-btn {
+            background: transparent;
+            border: none;
+            color: var(--md-sys-color-on-surface);
+            cursor: pointer;
+            width: 48px; height: 48px;
+            border-radius: var(--border-radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin: 24px 0;
+            transition: background var(--transition-standard);
         }
-        
-        .control-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.05);
+
+        .icon-btn:hover {
+            background: var(--md-sys-color-surface-variant);
+        }
+
+        .icon-btn.active {
+            color: var(--md-sys-color-primary);
+        }
+
+        .play-pause-btn {
+            width: 64px; height: 64px;
+            background: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            border-radius: var(--border-radius-full);
             border: none;
-            color: white;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
+            transition: transform var(--transition-standard), background var(--transition-standard);
         }
-        
-        .control-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: scale(1.05);
-        }
-        
-        .play-btn {
-            width: 64px;
-            height: 64px;
-            background: var(--primary);
-        }
-        
-        .play-btn:hover {
-            background: var(--primary-dark);
-        }
-        
-        .audio-controls {
+
+        .play-pause-btn .material-symbols-rounded { font-size: 32px; }
+        .play-pause-btn:hover { transform: scale(1.05); background: #6246AA; color: #fff;}
+        .play-pause-btn:active { transform: scale(0.95); }
+
+        .side-controls {
             display: flex;
             align-items: center;
-            gap: 20px;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            gap: 16px;
+            width: 30%;
         }
-        
-        .volume-container {
-            flex: 1;
+
+        .volume-slider-container {
             display: flex;
             align-items: center;
             gap: 12px;
-        }
-        
-        .volume-slider {
             flex: 1;
-            height: 4px;
-            -webkit-appearance: none;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
-            outline: none;
         }
-        
-        .volume-slider::-webkit-slider-thumb {
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: var(--md-sys-color-surface-variant);
+            border-radius: var(--border-radius-full);
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 16px;
             height: 16px;
             border-radius: 50%;
-            background: var(--primary);
-            cursor: pointer;
+            background: var(--md-sys-color-primary);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
-        
-        /* Sidebar - Google Material */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        
-        .sidebar-card {
-            background: var(--dark-light);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-        }
-        
-        .card-title {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        /* Audio Enhancement Options */
-        .enhancement-options {
-            display: grid;
-            gap: 12px;
-        }
-        
-        .enhancement-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-        
-        .enhancement-btn:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--primary);
-        }
-        
-        .enhancement-btn.active {
-            background: rgba(66, 133, 244, 0.2);
-            border-color: var(--primary);
-        }
-        
-        .enhancement-btn.apple-active {
-            background: rgba(250, 36, 60, 0.2);
-            border-color: var(--apple-music);
-        }
-        
-        .enhancement-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--gray);
-            font-size: 12px;
-        }
-        
-        .apple-badge {
-            background: var(--apple-music);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-        
-        .premium-badge {
-            background: linear-gradient(45deg, #FFD700, #FFA500);
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-        
-        /* Device Optimization */
-        .device-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .device-btn {
-            padding: 12px 16px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.2s;
-        }
-        
-        .device-btn:hover {
-            background: rgba(255,255,255,0.1);
-        }
-        
-        .device-btn.active {
-            background: rgba(66, 133, 244, 0.2);
-            border-color: var(--primary);
-        }
-        
-        .device-icon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-        }
-        
-        /* File List */
-        .file-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .file-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .file-item:hover {
-            background: rgba(255,255,255,0.1);
-        }
-        
-        .file-item.active {
-            background: rgba(66, 133, 244, 0.2);
-            border-left: 3px solid var(--primary);
-        }
-        
-        .file-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(66, 133, 244, 0.1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            margin-right: 12px;
-        }
-        
-        .file-info {
-            flex: 1;
-        }
-        
-        .file-name {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .file-details {
-            font-size: 12px;
-            color: var(--gray);
-        }
-        
-        /* Upload Area */
-        .upload-area {
-            border: 2px dashed rgba(255,255,255,0.2);
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: rgba(255,255,255,0.02);
-        }
-        
-        .upload-area:hover {
-            border-color: var(--primary);
-            background: rgba(66, 133, 244, 0.05);
-        }
-        
-        .upload-area i {
-            font-size: 48px;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
-        
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        
-        .stat-item {
-            background: rgba(255,255,255,0.05);
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        
-        .stat-label {
-            font-size: 12px;
-            color: var(--gray);
-        }
-        
-        /* Fullscreen Styles */
-        body:fullscreen .player-card {
-            max-width: 100%;
-            margin: 0;
-            border-radius: 0;
-        }
-        
-        body:fullscreen .media-display-container {
-            height: calc(100vh - 200px);
-        }
-        
-        /* Hidden */
-        .hidden {
-            display: none !important;
-        }
-        
-        /* Responsive */
+
         @media (max-width: 1024px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .player-card {
-                grid-column: 1;
-            }
-            
-            .media-display-container {
-                height: 400px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-            
-            .control-top {
-                flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
-            }
-            
-            .media-display-container {
-                height: 300px;
-            }
-            
-            .control-buttons {
-                gap: 10px;
-            }
+            .main-grid { grid-template-columns: 1fr; }
+            .side-controls { display: none; /* Simplify on mobile */ }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-play"></i>
-                </div>
-                <div class="logo-text">Pro Media Player</div>
+
+<div class="container">
+    <header>
+        <div class="logo-area">
+            <div class="logo-icon">
+                <span class="material-symbols-rounded">graphic_eq</span>
             </div>
-            <div class="user-actions">
-                <button class="btn btn-secondary" id="upload-btn">
-                    <i class="fas fa-upload"></i> Upload
-                </button>
-                <button class="btn btn-primary" id="settings-btn">
-                    <i class="fas fa-cog"></i> Settings
-                </button>
-            </div>
-        </header>
-        
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- File List -->
-                <div class="sidebar-card">
-                    <div class="card-title">
-                        <i class="fas fa-folder-open"></i>
-                        <span>Media Library</span>
-                    </div>
-                    <div class="file-list" id="file-list">
-                        <!-- Files will be added here -->
-                        <div class="upload-area" id="upload-area">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <h3>Upload Files</h3>
-                            <p>Drag & drop or click to upload</p>
-                            <input type="file" id="file-input" class="hidden" accept=".mp3,.wav,.mp4,.avi,.mkv,.gif,.png,.jpg,.jpeg" multiple>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Audio Enhancements -->
-                <div class="sidebar-card">
-                    <div class="card-title">
-                        <i class="fas fa-sliders-h"></i>
-                        <span>Audio Enhancements</span>
-                    </div>
-                    <div class="enhancement-options">
-                        <div class="enhancement-btn active" data-enhancement="none">
-                            <span>Normal</span>
-                            <div class="enhancement-info">
-                                <span>No processing</span>
-                            </div>
-                        </div>
-                        <div class="enhancement-btn" data-enhancement="apple-music">
-                            <span>Apple Music Mode
-                                <span class="apple-badge">NEW</span>
-                            </span>
-                            <div class="enhancement-info">
-                                <i class="fab fa-apple"></i>
-                                <span>Original quality</span>
-                            </div>
-                        </div>
-                        <div class="enhancement-btn" data-enhancement="apple-ebuds">
-                            <span>Apple Earbuds
-                                <span class="premium-badge">PREMIUM</span>
-                            </span>
-                            <div class="enhancement-info">
-                                <i class="fas fa-headphones"></i>
-                                <span>Optimized for AirPods</span>
-                            </div>
-                        </div>
-                        <div class="enhancement-btn" data-enhancement="universal-ebuds">
-                            <span>Universal Earbuds</span>
-                            <div class="enhancement-info">
-                                <i class="fas fa-broadcast-tower"></i>
-                                <span>All brands compatible</span>
-                            </div>
-                        </div>
-                        <div class="enhancement-btn" data-enhancement="dolby">
-                            <span>Dolby Digital +</span>
-                            <div class="enhancement-info">
-                                <i class="fas fa-volume-up"></i>
-                                <span>Cinema quality</span>
-                            </div>
-                        </div>
-                        <div class="enhancement-btn" data-enhancement="bass">
-                            <span>Bass Boost</span>
-                            <div class="enhancement-info">
-                                <i class="fas fa-drum"></i>
-                                <span>Enhanced low-end</span>
-                            </div>
-                        </div>
-                        <div class="enhancement-btn" data-enhancement="clear">
-                            <span>Clear Voice</span>
-                            <div class="enhancement-info">
-                                <i class="fas fa-user"></i>
-                                <span>Vocal enhancement</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Device Optimization -->
-                <div class="sidebar-card">
-                    <div class="card-title">
-                        <i class="fas fa-headphones"></i>
-                        <span>Device Optimization</span>
-                    </div>
-                    <div class="device-options">
-                        <div class="device-btn active" data-device="auto">
-                            <div class="device-icon">
-                                <i class="fas fa-magic"></i>
-                            </div>
-                            <div>
-                                <div>Auto Detect</div>
-                                <div style="font-size: 12px; color: var(--gray);">Best settings</div>
-                            </div>
-                        </div>
-                        <div class="device-btn" data-device="home">
-                            <div class="device-icon">
-                                <i class="fas fa-home"></i>
-                            </div>
-                            <div>
-                                <div>Home Theater</div>
-                                <div style="font-size: 12px; color: var(--gray);">5.1/7.1 systems</div>
-                            </div>
-                        </div>
-                        <div class="device-btn" data-device="headphones">
-                            <div class="device-icon">
-                                <i class="fas fa-headphones"></i>
-                            </div>
-                            <div>
-                                <div>Headphones</div>
-                                <div style="font-size: 12px; color: var(--gray);">Over-ear</div>
-                            </div>
-                        </div>
-                        <div class="device-btn" data-device="earphones">
-                            <div class="device-icon">
-                                <i class="fas fa-earbuds"></i>
-                            </div>
-                            <div>
-                                <div>Earphones</div>
-                                <div style="font-size: 12px; color: var(--gray);">In-ear</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Stats -->
-                <div class="sidebar-card">
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-value" id="bitrate-display">0</div>
-                            <div class="stat-label">Bitrate (kbps)</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="sample-rate">44.1</div>
-                            <div class="stat-label">Sample Rate (kHz)</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="channels">2.0</div>
-                            <div class="stat-label">Channels</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value" id="latency">15</div>
-                            <div class="stat-label">Latency (ms)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Main Player -->
-            <div class="player-card">
-                <!-- Media Display -->
-                <div class="media-display-container">
-                    <video id="media-display" class="hidden"></video>
-                    <img id="image-display" class="hidden" alt="Image">
-                    
-                    <!-- 3D Visualization Canvas -->
-                    <div class="visualization-container">
-                        <canvas id="canvas-3d"></canvas>
-                    </div>
-                    
-                    <!-- Fullscreen Button -->
-                    <button class="fullscreen-btn" id="fullscreen-btn">
-                        <i class="fas fa-expand"></i>
-                    </button>
-                    
-                    <!-- Visualization Selector -->
-                    <div class="visualization-selector">
-                        <button class="viz-btn active" data-viz="waves">Waves</button>
-                        <button class="viz-btn" data-viz="bars">Bars</button>
-                        <button class="viz-btn" data-viz="particles">Particles</button>
-                        <button class="viz-btn" data-viz="spectrum">Spectrum</button>
-                        <button class="viz-btn" data-viz="sphere">3D Sphere</button>
-                    </div>
-                </div>
-                
-                <!-- Player Controls -->
-                <div class="player-controls">
-                    <div class="control-top">
-                        <div class="now-playing">
-                            <div class="track-title" id="now-playing-title">No Media Selected</div>
-                            <div class="track-info">
-                                <span id="file-type">Select a file to begin</span>
-                                <span class="quality-badge">
-                                    <i class="fas fa-hd"></i>
-                                    <span id="quality-label">1080p Ready</span>
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <!-- Bitrate Selector -->
-                        <div class="bitrate-selector">
-                            <span style="color: var(--gray); font-size: 14px;">Quality:</span>
-                            <button class="bitrate-btn active" data-bitrate="original">Original</button>
-                            <button class="bitrate-btn" data-bitrate="low">Low</button>
-                            <button class="bitrate-btn" data-bitrate="high">High</button>
-                            <button class="bitrate-btn" data-bitrate="highest">Highest</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Progress Bar -->
-                    <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar">
-                            <div class="progress" id="progress"></div>
-                        </div>
-                        <div class="progress-time">
-                            <span id="current-time">0:00</span>
-                            <span id="duration">0:00</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Control Buttons -->
-                    <div class="control-buttons">
-                        <button class="control-btn" id="shuffle-btn" title="Shuffle">
-                            <i class="fas fa-random"></i>
-                        </button>
-                        <button class="control-btn" id="prev-btn" title="Previous">
-                            <i class="fas fa-step-backward"></i>
-                        </button>
-                        <button class="control-btn play-btn" id="play-btn" title="Play/Pause">
-                            <i class="fas fa-play" id="play-icon"></i>
-                        </button>
-                        <button class="control-btn" id="next-btn" title="Next">
-                            <i class="fas fa-step-forward"></i>
-                        </button>
-                        <button class="control-btn" id="repeat-btn" title="Repeat">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                    
-                    <!-- Audio Controls -->
-                    <div class="audio-controls">
-                        <div class="volume-container">
-                            <i class="fas fa-volume-down"></i>
-                            <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="80">
-                            <i class="fas fa-volume-up"></i>
-                            <span id="volume-percent">80%</span>
-                        </div>
-                        
-                        <div class="device-options" style="display: flex; gap: 8px;">
-                            <button class="control-btn" id="eq-toggle" title="Equalizer">
-                                <i class="fas fa-sliders-h"></i>
-                            </button>
-                            <button class="control-btn" id="effects-toggle" title="Audio Effects">
-                                <i class="fas fa-magic"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div class="logo-text">
+                <h1>Material Pro Media</h1>
+                <p>Real DSP & High-Fidelity Audio</p>
             </div>
         </div>
-    </div>
+        <div class="header-actions">
+            <button class="m3-btn btn-tonal" id="btn-fullscreen">
+                <span class="material-symbols-rounded">fullscreen</span>
+                Fullscreen
+            </button>
+        </div>
+    </header>
 
-    <script>
-        // Pro Media Player with Enhanced Audio Features
-        class ProMediaPlayer {
-            constructor() {
-                // State
-                this.files = [];
-                this.currentIndex = -1;
-                this.currentMedia = null;
-                this.isPlaying = false;
-                this.volume = 0.8;
-                this.isFullscreen = false;
-                this.currentBitrate = 'original';
-                this.currentEnhancement = 'none';
-                this.currentDevice = 'auto';
-                this.currentVisualization = 'waves';
-                
-                // Audio Context for enhancements
-                this.audioContext = null;
-                this.sourceNode = null;
-                this.gainNode = null;
-                this.analyser = null;
-                this.eqNodes = [];
-                this.dynamicsCompressor = null;
-                this.stereoEnhancer = null;
-                this.spatialAudio = null;
-                
-                // Visualization
-                this.canvas = document.getElementById('canvas-3d');
-                this.ctx = this.canvas.getContext('2d');
-                this.visualizationInterval = null;
-                this.audioData = null;
-                
-                // DOM Elements
-                this.elements = {
-                    // Media displays
-                    mediaDisplay: document.getElementById('media-display'),
-                    imageDisplay: document.getElementById('image-display'),
-                    canvas3d: this.canvas,
-                    
-                    // Player info
-                    nowPlayingTitle: document.getElementById('now-playing-title'),
-                    fileType: document.getElementById('file-type'),
-                    qualityLabel: document.getElementById('quality-label'),
-                    
-                    // Controls
-                    playBtn: document.getElementById('play-btn'),
-                    playIcon: document.getElementById('play-icon'),
-                    prevBtn: document.getElementById('prev-btn'),
-                    nextBtn: document.getElementById('next-btn'),
-                    shuffleBtn: document.getElementById('shuffle-btn'),
-                    repeatBtn: document.getElementById('repeat-btn'),
-                    progressBar: document.getElementById('progress-bar'),
-                    progress: document.getElementById('progress'),
-                    currentTime: document.getElementById('current-time'),
-                    duration: document.getElementById('duration'),
-                    volumeSlider: document.getElementById('volume-slider'),
-                    volumePercent: document.getElementById('volume-percent'),
-                    fullscreenBtn: document.getElementById('fullscreen-btn'),
-                    
-                    // Settings
-                    bitrateButtons: document.querySelectorAll('.bitrate-btn'),
-                    enhancementButtons: document.querySelectorAll('.enhancement-btn'),
-                    deviceButtons: document.querySelectorAll('.device-btn'),
-                    vizButtons: document.querySelectorAll('.viz-btn'),
-                    
-                    // Upload
-                    uploadArea: document.getElementById('upload-area'),
-                    fileInput: document.getElementById('file-input'),
-                    fileList: document.getElementById('file-list'),
-                    
-                    // Stats
-                    bitrateDisplay: document.getElementById('bitrate-display'),
-                    sampleRate: document.getElementById('sample-rate'),
-                    channels: document.getElementById('channels'),
-                    latency: document.getElementById('latency')
-                };
-                
-                // Initialize
-                this.initCanvas();
-                this.bindEvents();
-                this.setupDefaultFiles();
-            }
+    <div class="main-grid">
+        <aside style="display: flex; flex-direction: column; gap: 24px;">
             
-            initCanvas() {
-                // Set canvas size
-                this.resizeCanvas();
-                window.addEventListener('resize', () => this.resizeCanvas());
-            }
-            
-            resizeCanvas() {
-                const container = document.querySelector('.media-display-container');
-                this.canvas.width = container.clientWidth;
-                this.canvas.height = container.clientHeight;
-            }
-            
-            setupDefaultFiles() {
-                // No sample files - empty library
-                this.renderFileList();
-            }
-            
-            bindEvents() {
-                // Upload
-                this.elements.uploadArea.addEventListener('click', () => {
-                    this.elements.fileInput.click();
-                });
+            <div class="m3-card">
+                <div class="card-header">
+                    <span class="material-symbols-rounded">library_music</span>
+                    Media Library
+                </div>
                 
-                this.elements.fileInput.addEventListener('change', (e) => {
-                    this.handleFiles(e.target.files);
-                    e.target.value = '';
-                });
-                
-                // Drag and drop
-                this.elements.uploadArea.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    this.elements.uploadArea.style.borderColor = 'var(--primary)';
-                    this.elements.uploadArea.style.background = 'rgba(66, 133, 244, 0.1)';
-                });
-                
-                this.elements.uploadArea.addEventListener('dragleave', () => {
-                    this.elements.uploadArea.style.borderColor = '';
-                    this.elements.uploadArea.style.background = '';
-                });
-                
-                this.elements.uploadArea.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    this.elements.uploadArea.style.borderColor = '';
-                    this.elements.uploadArea.style.background = '';
-                    this.handleFiles(e.dataTransfer.files);
-                });
-                
-                // Player controls
-                this.elements.playBtn.addEventListener('click', () => this.togglePlayback());
-                this.elements.prevBtn.addEventListener('click', () => this.previous());
-                this.elements.nextBtn.addEventListener('click', () => this.next());
-                this.elements.shuffleBtn.addEventListener('click', () => this.toggleShuffle());
-                this.elements.repeatBtn.addEventListener('click', () => this.toggleRepeat());
-                this.elements.progressBar.addEventListener('click', (e) => this.seek(e));
-                this.elements.volumeSlider.addEventListener('input', (e) => this.setVolume(e.target.value));
-                this.elements.fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
-                
-                // Settings
-                this.elements.bitrateButtons.forEach(btn => {
-                    btn.addEventListener('click', (e) => this.setBitrate(e.target.dataset.bitrate));
-                });
-                
-                this.elements.enhancementButtons.forEach(btn => {
-                    btn.addEventListener('click', (e) => this.setEnhancement(e.currentTarget.dataset.enhancement));
-                });
-                
-                this.elements.deviceButtons.forEach(btn => {
-                    btn.addEventListener('click', (e) => this.setDevice(e.currentTarget.dataset.device));
-                });
-                
-                this.elements.vizButtons.forEach(btn => {
-                    btn.addEventListener('click', (e) => this.setVisualization(e.target.dataset.viz));
-                });
-                
-                // Fullscreen change
-                document.addEventListener('fullscreenchange', () => {
-                    this.isFullscreen = !!document.fullscreenElement;
-                    this.updateFullscreenButton();
-                });
-            }
-            
-            handleFiles(fileList) {
-                for (let i = 0; i < fileList.length; i++) {
-                    const file = fileList[i];
-                    const url = URL.createObjectURL(file);
-                    
-                    // Detect file type
-                    const type = this.detectFileType(file);
-                    
-                    // Add to files array
-                    this.files.push({
-                        id: Date.now() + i,
-                        name: file.name,
-                        type: type,
-                        url: url,
-                        size: this.formatFileSize(file.size),
-                        fileObject: file,
-                        bitrate: this.estimateBitrate(file, type)
-                    });
-                }
-                
-                // Render updated file list
-                this.renderFileList();
-                
-                // If first file, load it
-                if (this.currentIndex === -1 && this.files.length > 0) {
-                    this.loadFile(0);
-                }
-            }
-            
-            detectFileType(file) {
-                const name = file.name.toLowerCase();
-                if (name.endsWith('.mp3') || name.endsWith('.wav') || name.endsWith('.ogg') || name.endsWith('.flac')) {
-                    return 'audio';
-                } else if (name.endsWith('.mp4') || name.endsWith('.avi') || name.endsWith('.mkv') || name.endsWith('.mov')) {
-                    return 'video';
-                } else if (name.endsWith('.gif')) {
-                    return 'gif';
-                } else if (name.endsWith('.png') || name.endsWith('.jpg') || name.endsWith('.jpeg') || name.endsWith('.webp')) {
-                    return 'image';
-                }
-                return 'unknown';
-            }
-            
-            estimateBitrate(file, type) {
-                // Estimate bitrate based on file size and type
-                let estimatedBitrate = 128; // Default
-                
-                if (type === 'audio') {
-                    // For audio files, estimate based on size and typical duration
-                    estimatedBitrate = Math.min(320, Math.max(64, (file.size / 1024) / 5));
-                } else if (type === 'video') {
-                    // For video files, higher bitrate
-                    estimatedBitrate = Math.min(5000, Math.max(500, (file.size / 1024) / 2));
-                }
-                
-                return Math.round(estimatedBitrate);
-            }
-            
-            renderFileList() {
-                // Clear current list but keep upload area
-                const uploadArea = this.elements.uploadArea.cloneNode(true);
-                this.elements.fileList.innerHTML = '';
-                this.elements.fileList.appendChild(uploadArea);
-                
-                // Rebind upload events for cloned area
-                const newUploadArea = this.elements.fileList.querySelector('.upload-area');
-                const newFileInput = this.elements.fileList.querySelector('#file-input');
-                
-                newUploadArea.addEventListener('click', () => newFileInput.click());
-                newUploadArea.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    newUploadArea.style.borderColor = 'var(--primary)';
-                    newUploadArea.style.background = 'rgba(66, 133, 244, 0.1)';
-                });
-                newUploadArea.addEventListener('dragleave', () => {
-                    newUploadArea.style.borderColor = '';
-                    newUploadArea.style.background = '';
-                });
-                newUploadArea.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    newUploadArea.style.borderColor = '';
-                    newUploadArea.style.background = '';
-                    this.handleFiles(e.dataTransfer.files);
-                });
-                
-                newFileInput.addEventListener('change', (e) => {
-                    this.handleFiles(e.target.files);
-                    e.target.value = '';
-                });
-                
-                // Add files to list
-                this.files.forEach((file, index) => {
-                    const fileItem = this.createFileItem(file, index);
-                    this.elements.fileList.insertBefore(fileItem, newUploadArea);
-                });
-            }
-            
-            createFileItem(file, index) {
-                const item = document.createElement('div');
-                item.className = `file-item ${index === this.currentIndex ? 'active' : ''}`;
-                item.dataset.index = index;
-                
-                // Determine icon
-                let icon = 'fa-file';
-                if (file.type === 'audio') icon = 'fa-music';
-                else if (file.type === 'video') icon = 'fa-video';
-                else if (file.type === 'gif') icon = 'fa-film';
-                else if (file.type === 'image') icon = 'fa-image';
-                
-                item.innerHTML = `
-                    <div class="file-icon">
-                        <i class="fas ${icon}"></i>
+                <div class="upload-zone" id="upload-zone">
+                    <span class="material-symbols-rounded">cloud_upload</span>
+                    <p style="font-weight: 500;">Click or Drag Files Here</p>
+                    <p style="font-size: 12px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px;">Supports MP3, WAV, FLAC, MP4</p>
+                    <input type="file" id="file-input" class="hidden" accept="audio/*, video/*, image/*" multiple>
+                </div>
+
+                <div class="file-list" id="file-list">
                     </div>
-                    <div class="file-info">
-                        <div class="file-name">${file.name}</div>
-                        <div class="file-details">
-                            <span>${file.type.toUpperCase()}</span>
-                            <span>${file.size}</span>
-                            <span>${file.bitrate}kbps</span>
+            </div>
+
+            <div class="m3-card">
+                <div class="card-header">
+                    <span class="material-symbols-rounded">tune</span>
+                    Studio DSP Profile
+                </div>
+                <div class="option-list">
+                    <button class="option-btn active" data-dsp="flat">
+                        <div class="option-left">
+                            <span class="material-symbols-rounded">check_circle</span>
+                            <span>Studio Flat (Direct)</span>
                         </div>
+                    </button>
+                    <button class="option-btn" data-dsp="apple_music">
+                        <div class="option-left">
+                            <span class="material-symbols-rounded">music_note</span>
+                            <span>Apple Music Signature</span>
+                        </div>
+                        <span class="badge badge-apple">Lossless Feel</span>
+                    </button>
+                    <button class="option-btn" data-dsp="airpods">
+                        <div class="option-left">
+                            <span class="material-symbols-rounded">earbuds</span>
+                            <span>AirPods Optimization</span>
+                        </div>
+                    </button>
+                    <button class="option-btn" data-dsp="dolby">
+                        <div class="option-left">
+                            <span class="material-symbols-rounded">surround_sound</span>
+                            <span>Cinematic Spatial</span>
+                        </div>
+                        <span class="badge badge-pro">Wide</span>
+                    </button>
+                    <button class="option-btn" data-dsp="bass_boost">
+                        <div class="option-left">
+                            <span class="material-symbols-rounded">speaker</span>
+                            <span>Deep Bass Boost</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-val" id="stat-sr">44.1</div>
+                    <div class="stat-lbl">Sample Rate (kHz)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val" id="stat-format">PCM</div>
+                    <div class="stat-lbl">Output Format</div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="player-area">
+            
+            <div class="display-container" id="display-container">
+                <video id="media-video" class="hidden"></video>
+                <img id="media-image" class="hidden" alt="Media Artwork">
+                <canvas id="visualizer-canvas"></canvas>
+
+                <div class="viz-controls" id="viz-controls">
+                    <button class="viz-tab active" data-viz="fluid">Fluid Particles</button>
+                    <button class="viz-tab" data-viz="bars">Neon Bars</button>
+                    <button class="viz-tab" data-viz="wave">Oscilloscope</button>
+                    <button class="viz-tab" data-viz="apple">Apple Core</button>
+                </div>
+            </div>
+
+            <div class="control-bar">
+                <div class="track-info-row">
+                    <div class="track-titles">
+                        <h2 id="track-title">No Media Selected</h2>
+                        <p id="track-meta">Upload a file to begin the experience</p>
                     </div>
-                `;
-                
-                item.addEventListener('click', () => this.loadFile(index));
-                
-                return item;
-            }
-            
-            loadFile(index) {
-                // Stop current playback
-                if (this.currentMedia) {
-                    this.currentMedia.pause();
-                    this.isPlaying = false;
-                    this.elements.playIcon.className = 'fas fa-play';
-                    this.stopVisualization();
-                }
-                
-                // Cleanup audio nodes
-                this.cleanupAudioNodes();
-                
-                // Update index
-                this.currentIndex = index;
-                const file = this.files[index];
-                
-                // Update UI
-                this.elements.nowPlayingTitle.textContent = file.name;
-                this.elements.fileType.textContent = `${file.type.toUpperCase()} • ${file.size}`;
-                this.elements.bitrateDisplay.textContent = file.bitrate;
-                
-                // Update active file in list
-                document.querySelectorAll('.file-item').forEach((item, i) => {
-                    item.classList.toggle('active', i === index);
-                });
-                
-                // Hide all displays
-                this.elements.mediaDisplay.classList.add('hidden');
-                this.elements.imageDisplay.classList.add('hidden');
-                
-                // Load based on file type
-                if (file.type === 'audio') {
-                    this.loadAudio(file);
-                } else if (file.type === 'video') {
-                    this.loadVideo(file);
-                } else if (file.type === 'image' || file.type === 'gif') {
-                    this.loadImage(file);
-                }
-                
-                // Apply current settings
-                this.applyBitrateSettings();
-                this.applyAudioEnhancement();
-                this.applyDeviceOptimization();
-                
-                // Start visualization if audio
-                if (file.type === 'audio') {
-                    this.startVisualization();
-                }
-            }
-            
-            loadAudio(file) {
-                const audio = new Audio();
-                audio.src = file.url;
-                audio.volume = this.volume;
-                audio.preload = 'auto';
-                
-                // Set up event listeners
-                audio.addEventListener('loadedmetadata', () => {
-                    this.elements.duration.textContent = this.formatTime(audio.duration);
-                    
-                    // Setup Web Audio API for enhancements
-                    this.setupAudioProcessing(audio);
-                });
-                
-                audio.addEventListener('timeupdate', () => {
-                    this.updateProgress(audio);
-                });
-                
-                audio.addEventListener('ended', () => {
-                    this.isPlaying = false;
-                    this.elements.playIcon.className = 'fas fa-play';
-                    this.next();
-                });
-                
-                this.currentMedia = audio;
-                
-                // Show quality label
-                this.elements.qualityLabel.textContent = 'Hi-Fi Audio';
-                
-                // Update stats
-                this.updateAudioStats();
-            }
-            
-            loadVideo(file) {
-                const video = document.createElement('video');
-                video.src = file.url;
-                video.volume = this.volume;
-                video.preload = 'auto';
-                video.controls = false;
-                
-                // Set up event listeners
-                video.addEventListener('loadedmetadata', () => {
-                    this.elements.duration.textContent = this.formatTime(video.duration);
-                    this.elements.mediaDisplay = video;
-                    this.elements.mediaDisplay.classList.remove('hidden');
-                });
-                
-                video.addEventListener('timeupdate', () => {
-                    this.updateProgress(video);
-                });
-                
-                video.addEventListener('ended', () => {
-                    this.isPlaying = false;
-                    this.elements.playIcon.className = 'fas fa-play';
-                    this.next();
-                });
-                
-                this.currentMedia = video;
-                this.elements.mediaDisplay = video;
-                this.elements.mediaDisplay.classList.remove('hidden');
-                
-                // Show quality label
-                this.elements.qualityLabel.textContent = '1080p Ready';
-            }
-            
-            loadImage(file) {
-                const img = new Image();
-                img.src = file.url;
-                
-                img.onload = () => {
-                    this.elements.imageDisplay.src = file.url;
-                    this.elements.imageDisplay.classList.remove('hidden');
-                    this.elements.duration.textContent = '--:--';
-                };
-                
-                this.currentMedia = img;
-                
-                // Hide visualization
-                this.stopVisualization();
-                
-                // Show quality label
-                this.elements.qualityLabel.textContent = 'HD Image';
-            }
-            
-            setupAudioProcessing(audioElement) {
-                // Create audio context
-                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                
-                // Create source node
-                this.sourceNode = this.audioContext.createMediaElementSource(audioElement);
-                
-                // Create gain node for volume
-                this.gainNode = this.audioContext.createGain();
-                this.gainNode.gain.value = this.volume;
-                
-                // Create analyser for visualization
-                this.analyser = this.audioContext.createAnalyser();
-                this.analyser.fftSize = 2048;
-                this.analyser.smoothingTimeConstant = 0.8;
-                
-                // Create data array for analyser
-                const bufferLength = this.analyser.frequencyBinCount;
-                this.audioData = new Uint8Array(bufferLength);
-                
-                // Create compressor for dynamics control
-                this.dynamicsCompressor = this.audioContext.createDynamicsCompressor();
-                this.dynamicsCompressor.threshold.value = -24;
-                this.dynamicsCompressor.knee.value = 30;
-                this.dynamicsCompressor.ratio.value = 12;
-                this.dynamicsCompressor.attack.value = 0.003;
-                this.dynamicsCompressor.release.value = 0.25;
-                
-                // Connect default chain
-                this.sourceNode.connect(this.dynamicsCompressor);
-                this.dynamicsCompressor.connect(this.gainNode);
-                this.gainNode.connect(this.analyser);
-                this.analyser.connect(this.audioContext.destination);
-                
-                // Resume audio context
-                if (this.audioContext.state === 'suspended') {
-                    this.audioContext.resume();
-                }
-            }
-            
-            applyAudioEnhancement() {
-                if (!this.audioContext || !this.sourceNode) return;
-                
-                // Disconnect all nodes
-                this.sourceNode.disconnect();
-                this.gainNode.disconnect();
-                this.analyser.disconnect();
-                this.dynamicsCompressor.disconnect();
-                
-                // Cleanup EQ nodes
-                this.eqNodes.forEach(node => node.disconnect());
-                this.eqNodes = [];
-                
-                // Disconnect spatial audio if exists
-                if (this.spatialAudio) {
-                    this.spatialAudio.disconnect();
-                    this.spatialAudio = null;
-                }
-                
-                if (this.stereoEnhancer) {
-                    this.stereoEnhancer.disconnect();
-                    this.stereoEnhancer = null;
-                }
-                
-                // Reconnect base chain
-                let lastNode = this.sourceNode;
-                
-                // Apply enhancement based on setting
-                switch (this.currentEnhancement) {
-                    case 'apple-music':
-                        // Apple Music Mode - Focus on clarity and natural sound
-                        // Mild compression and subtle EQ
-                        this.dynamicsCompressor.threshold.value = -20;
-                        this.dynamicsCompressor.ratio.value = 4;
-                        this.dynamicsCompressor.knee.value = 10;
+                    <div class="quality-tag" id="quality-tag">
+                        <span class="material-symbols-rounded">high_quality</span>
+                        <span id="quality-text">Hi-Res Ready</span>
+                    </div>
+                </div>
+
+                <div class="progress-wrapper">
+                    <div class="progress-track" id="progress-track">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="time-row">
+                        <span id="time-current">0:00</span>
+                        <span id="time-total">0:00</span>
+                    </div>
+                </div>
+
+                <div class="playback-controls">
+                    <div class="side-controls">
+                        </div>
+
+                    <div class="center-controls">
+                        <button class="icon-btn" id="btn-shuffle" title="Shuffle">
+                            <span class="material-symbols-rounded">shuffle</span>
+                        </button>
+                        <button class="icon-btn" id="btn-prev" title="Previous">
+                            <span class="material-symbols-rounded">skip_previous</span>
+                        </button>
                         
-                        // Subtle EQ for Apple Music signature
-                        const eqApple1 = this.audioContext.createBiquadFilter();
-                        eqApple1.type = 'lowshelf';
-                        eqApple1.frequency.value = 120;
-                        eqApple1.gain.value = 1.5; // Slight bass boost
-                        lastNode.connect(eqApple1);
-                        lastNode = eqApple1;
-                        this.eqNodes.push(eqApple1);
+                        <button class="play-pause-btn" id="btn-play">
+                            <span class="material-symbols-rounded" id="play-icon">play_arrow</span>
+                        </button>
                         
-                        const eqApple2 = this.audioContext.createBiquadFilter();
-                        eqApple2.type = 'peaking';
-                        eqApple2.frequency.value = 1000;
-                        eqApple2.gain.value = 1; // Natural mid-range
-                        lastNode.connect(eqApple2);
-                        lastNode = eqApple2;
-                        this.eqNodes.push(eqApple2);
-                        
-                        const eqApple3 = this.audioContext.createBiquadFilter();
-                        eqApple3.type = 'highshelf';
-                        eqApple3.frequency.value = 8000;
-                        eqApple3.gain.value = 1.2; // Slight treble enhancement
-                        lastNode.connect(eqApple3);
-                        lastNode = eqApple3;
-                        this.eqNodes.push(eqApple3);
-                        break;
-                        
-                    case 'apple-ebuds':
-                        // Optimized for Apple AirPods/Earbuds
-                        // Enhanced bass and clear vocals
-                        this.dynamicsCompressor.threshold.value = -18;
-                        this.dynamicsCompressor.ratio.value = 6;
-                        
-                        // Bass enhancement for small drivers
-                        const bassBoostApple = this.audioContext.createBiquadFilter();
-                        bassBoostApple.type = 'lowshelf';
-                        bassBoostApple.frequency.value = 180;
-                        bassBoostApple.gain.value = 6; // Strong bass boost for small earbuds
-                        lastNode.connect(bassBoostApple);
-                        lastNode = bassBoostApple;
-                        this.eqNodes.push(bassBoostApple);
-                        
-                        // Mid-range clarity
-                        const midClarity = this.audioContext.createBiquadFilter();
-                        midClarity.type = 'peaking';
-                        midClarity.frequency.value = 1500;
-                        midClarity.gain.value = 3; // Enhanced vocal clarity
-                        lastNode.connect(midClarity);
-                        lastNode = midClarity;
-                        this.eqNodes.push(midClarity);
-                        
-                        // Treble enhancement for detail
-                        const trebleApple = this.audioContext.createBiquadFilter();
-                        trebleApple.type = 'highshelf';
-                        trebleApple.frequency.value = 6000;
-                        trebleApple.gain.value = 2; // Enhanced detail
-                        lastNode.connect(trebleApple);
-                        lastNode = trebleApple;
-                        this.eqNodes.push(trebleApple);
-                        
-                        // Spatial audio simulation
-                        this.createSpatialAudioEffect(lastNode);
-                        lastNode = this.spatialAudio;
-                        break;
-                        
-                    case 'universal-ebuds':
-                        // Optimized for all earbud brands (Samsung, Sony, etc.)
-                        // Balanced profile for various driver types
-                        this.dynamicsCompressor.threshold.value = -22;
-                        this.dynamicsCompressor.ratio.value = 8;
-                        
-                        // Gentle bass shelf for universal compatibility
-                        const bassUniversal = this.audioContext.createBiquadFilter();
-                        bassUniversal.type = 'lowshelf';
-                        bassUniversal.frequency.value = 150;
-                        bassUniversal.gain.value = 4; // Moderate bass
-                        lastNode.connect(bassUniversal);
-                        lastNode = bassUniversal;
-                        this.eqNodes.push(bassUniversal);
-                        
-                        // Broad mid-range boost for vocal clarity
-                        const midUniversal = this.audioContext.createBiquadFilter();
-                        midUniversal.type = 'peaking';
-                        midUniversal.frequency.value = 2000;
-                        midUniversal.Q.value = 0.7; // Broad Q
-                        midUniversal.gain.value = 2; // Gentle mid boost
-                        lastNode.connect(midUniversal);
-                        lastNode = midUniversal;
-                        this.eqNodes.push(midUniversal);
-                        
-                        // Treble adjustment for various earbud types
-                        const trebleUniversal = this.audioContext.createBiquadFilter();
-                        trebleUniversal.type = 'highshelf';
-                        trebleUniversal.frequency.value = 7000;
-                        trebleUniversal.gain.value = 1.5; // Subtle treble
-                        lastNode.connect(trebleUniversal);
-                        lastNode = trebleUniversal;
-                        this.eqNodes.push(trebleUniversal);
-                        
-                        // Stereo enhancement for better imaging
-                        this.createStereoEnhancer(lastNode);
-                        lastNode = this.stereoEnhancer;
-                        break;
-                        
-                    case 'dolby':
-                        // Dolby Digital + with EQ and compression
-                        this.dynamicsCompressor.threshold.value = -15;
-                        this.dynamicsCompressor.ratio.value = 12;
-                        
-                        const eq1 = this.audioContext.createBiquadFilter();
-                        eq1.type = 'lowshelf';
-                        eq1.frequency.value = 100;
-                        eq1.gain.value = 4;
-                        lastNode.connect(eq1);
-                        lastNode = eq1;
-                        this.eqNodes.push(eq1);
-                        
-                        const eq2 = this.audioContext.createBiquadFilter();
-                        eq2.type = 'peaking';
-                        eq2.frequency.value = 1000;
-                        eq2.gain.value = 2;
-                        lastNode.connect(eq2);
-                        lastNode = eq2;
-                        this.eqNodes.push(eq2);
-                        
-                        const eq3 = this.audioContext.createBiquadFilter();
-                        eq3.type = 'highshelf';
-                        eq3.frequency.value = 5000;
-                        eq3.gain.value = 3;
-                        lastNode.connect(eq3);
-                        lastNode = eq3;
-                        this.eqNodes.push(eq3);
-                        break;
-                        
-                    case 'bass':
-                        // Bass boost
-                        this.dynamicsCompressor.threshold.value = -20;
-                        
-                        const bassFilter = this.audioContext.createBiquadFilter();
-                        bassFilter.type = 'lowshelf';
-                        bassFilter.frequency.value = 150;
-                        bassFilter.gain.value = 8;
-                        lastNode.connect(bassFilter);
-                        lastNode = bassFilter;
-                        this.eqNodes.push(bassFilter);
-                        break;
-                        
-                    case 'clear':
-                        // Voice clarity
-                        this.dynamicsCompressor.threshold.value = -25;
-                        this.dynamicsCompressor.ratio.value = 6;
-                        
-                        const lowCut = this.audioContext.createBiquadFilter();
-                        lowCut.type = 'highpass';
-                        lowCut.frequency.value = 80;
-                        lastNode.connect(lowCut);
-                        lastNode = lowCut;
-                        this.eqNodes.push(lowCut);
-                        
-                        const highBoost = this.audioContext.createBiquadFilter();
-                        highBoost.type = 'peaking';
-                        highBoost.frequency.value = 3000;
-                        highBoost.gain.value = 6;
-                        lastNode.connect(highBoost);
-                        lastNode = highBoost;
-                        this.eqNodes.push(highBoost);
-                        break;
-                }
-                
-                // Connect to compressor, gain and analyser
-                lastNode.connect(this.dynamicsCompressor);
-                this.dynamicsCompressor.connect(this.gainNode);
-                this.gainNode.connect(this.analyser);
-                this.analyser.connect(this.audioContext.destination);
-                
-                // Update UI for Apple-specific enhancements
-                this.updateEnhancementUI();
-            }
-            
-            createSpatialAudioEffect(inputNode) {
-                // Simple spatial audio simulation using PannerNode
-                this.spatialAudio = this.audioContext.createPanner();
-                this.spatialAudio.panningModel = 'HRTF';
-                this.spatialAudio.distanceModel = 'inverse';
-                this.spatialAudio.refDistance = 1;
-                this.spatialAudio.maxDistance = 10000;
-                this.spatialAudio.rolloffFactor = 1;
-                this.spatialAudio.coneInnerAngle = 360;
-                this.spatialAudio.coneOuterAngle = 0;
-                this.spatialAudio.coneOuterGain = 0;
-                
-                // Set position for spatial effect
-                this.spatialAudio.positionX.value = 0;
-                this.spatialAudio.positionY.value = 0;
-                this.spatialAudio.positionZ.value = 1;
-                
-                inputNode.connect(this.spatialAudio);
-            }
-            
-            createStereoEnhancer(inputNode) {
-                // Simple stereo enhancer using split channels
-                this.stereoEnhancer = this.audioContext.createChannelSplitter(2);
-                const merger = this.audioContext.createChannelMerger(2);
-                
-                // Create slight delay on one channel for width
-                const delayL = this.audioContext.createDelay();
-                delayL.delayTime.value = 0.001; // 1ms delay
-                
-                const delayR = this.audioContext.createDelay();
-                delayR.delayTime.value = 0.002; // 2ms delay
-                
-                inputNode.connect(this.stereoEnhancer);
-                this.stereoEnhancer.connect(delayL, 0);
-                this.stereoEnhancer.connect(delayR, 1);
-                delayL.connect(merger, 0, 0);
-                delayR.connect(merger, 0, 1);
-                
-                this.stereoEnhancer = merger;
-            }
-            
-            updateEnhancementUI() {
-                // Update UI styling for Apple enhancements
-                this.elements.enhancementButtons.forEach(btn => {
-                    btn.classList.remove('apple-active');
-                    if (btn.dataset.enhancement === this.currentEnhancement) {
-                        if (this.currentEnhancement.includes('apple')) {
-                            btn.classList.add('apple-active');
-                        }
-                    }
-                });
-                
-                // Update quality label for Apple modes
-                if (this.currentEnhancement === 'apple-music') {
-                    this.elements.qualityLabel.textContent = 'Apple Music';
-                    this.elements.qualityLabel.style.background = 'var(--apple-music)';
-                } else if (this.currentEnhancement.includes('apple')) {
-                    this.elements.qualityLabel.textContent = 'Apple Enhanced';
-                    this.elements.qualityLabel.style.background = 'var(--apple-music)';
-                } else {
-                    this.elements.qualityLabel.style.background = 'var(--primary)';
-                }
-            }
-            
-            applyDeviceOptimization() {
-                if (!this.audioContext || !this.sourceNode) return;
-                
-                // Reapply enhancement to include device optimization
-                this.applyAudioEnhancement();
-                
-                // Additional device-specific processing
-                switch (this.currentDevice) {
-                    case 'home':
-                        // Home theater - simulate surround
-                        this.elements.channels.textContent = '5.1';
-                        break;
-                    case 'headphones':
-                        // Headphones - stereo enhancement
-                        this.elements.channels.textContent = '2.0';
-                        break;
-                    case 'earphones':
-                        // Earphones - boost mids for clarity
-                        this.elements.channels.textContent = '2.0';
-                        
-                        // If using earbuds enhancement, adjust further
-                        if (this.currentEnhancement === 'apple-ebuds' || 
-                            this.currentEnhancement === 'universal-ebuds') {
-                            // Add additional high-pass filter for earphone safety
-                            const safetyFilter = this.audioContext.createBiquadFilter();
-                            safetyFilter.type = 'highpass';
-                            safetyFilter.frequency.value = 40;
-                            // Insert at beginning of chain
-                            if (this.eqNodes.length > 0) {
-                                // Logic to insert filter at correct position
-                            }
-                        }
-                        break;
-                    default:
-                        this.elements.channels.textContent = 'Auto';
-                }
-            }
-            
-            applyBitrateSettings() {
-                if (!this.currentMedia) return;
-                
-                // Simulate bitrate adjustment (in a real app, this would load different quality files)
-                let bitrate = this.files[this.currentIndex]?.bitrate || 128;
-                
-                switch (this.currentBitrate) {
-                    case 'low':
-                        bitrate = Math.round(bitrate * 0.5);
-                        this.elements.latency.textContent = '10';
-                        break;
-                    case 'high':
-                        bitrate = Math.round(bitrate * 1.5);
-                        this.elements.latency.textContent = '25';
-                        break;
-                    case 'highest':
-                        bitrate = Math.round(bitrate * 2);
-                        this.elements.latency.textContent = '40';
-                        break;
-                    default:
-                        this.elements.latency.textContent = '15';
-                }
-                
-                this.elements.bitrateDisplay.textContent = bitrate;
-            }
-            
-            cleanupAudioNodes() {
-                if (this.audioContext) {
-                    this.sourceNode?.disconnect();
-                    this.gainNode?.disconnect();
-                    this.analyser?.disconnect();
-                    this.dynamicsCompressor?.disconnect();
-                    this.eqNodes.forEach(node => node.disconnect());
-                    this.eqNodes = [];
-                    
-                    if (this.spatialAudio) {
-                        this.spatialAudio.disconnect();
-                        this.spatialAudio = null;
-                    }
-                    
-                    if (this.stereoEnhancer) {
-                        this.stereoEnhancer.disconnect();
-                        this.stereoEnhancer = null;
-                    }
-                    
-                    if (this.audioContext.state !== 'closed') {
-                        this.audioContext.close();
-                    }
-                }
-            }
-            
-            startVisualization() {
-                this.stopVisualization();
-                
-                this.visualizationInterval = setInterval(() => {
-                    if (!this.analyser || !this.audioData) return;
-                    
-                    // Get frequency data
-                    this.analyser.getByteFrequencyData(this.audioData);
-                    
-                    // Draw visualization based on current mode
-                    this.drawVisualization();
-                    
-                }, 1000 / 60); // 60 FPS
-            }
-            
-            drawVisualization() {
-                const width = this.canvas.width;
-                const height = this.canvas.height;
-                
-                // Clear canvas
-                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-                this.ctx.fillRect(0, 0, width, height);
-                
-                // Apple Music themed visualization for Apple modes
-                if (this.currentEnhancement.includes('apple')) {
-                    this.drawAppleThemedVisualization(width, height);
-                } else {
-                    // Draw based on visualization mode
-                    switch (this.currentVisualization) {
-                        case 'waves':
-                            this.drawWaves(width, height);
-                            break;
-                        case 'bars':
-                            this.drawBars(width, height);
-                            break;
-                        case 'particles':
-                            this.drawParticles(width, height);
-                            break;
-                        case 'spectrum':
-                            this.drawSpectrum(width, height);
-                            break;
-                        case 'sphere':
-                            this.drawSphere(width, height);
-                            break;
-                    }
-                }
-            }
-            
-            drawAppleThemedVisualization(width, height) {
-                // Apple-themed visualization with red accent
-                const centerX = width / 2;
-                const centerY = height / 2;
-                
-                // Draw circular visualization for Apple aesthetic
-                this.ctx.beginPath();
-                this.ctx.lineWidth = 3;
-                
-                // Use Apple red gradient
-                const gradient = this.ctx.createRadialGradient(
-                    centerX, centerY, 0,
-                    centerX, centerY, Math.min(width, height) / 2
-                );
-                gradient.addColorStop(0, 'rgba(250, 36, 60, 0.9)');
-                gradient.addColorStop(0.5, 'rgba(250, 36, 60, 0.5)');
-                gradient.addColorStop(1, 'rgba(250, 36, 60, 0.1)');
-                
-                this.ctx.strokeStyle = gradient;
-                
-                // Create circular waveform
-                const sliceAngle = (Math.PI * 2) / this.audioData.length;
-                let angle = 0;
-                
-                for (let i = 0; i < this.audioData.length; i++) {
-                    const value = this.audioData[i] / 255;
-                    const radius = Math.min(width, height) * 0.2 * (0.5 + value * 0.5);
-                    
-                    const x = centerX + Math.cos(angle) * radius;
-                    const y = centerY + Math.sin(angle) * radius;
-                    
-                    if (i === 0) {
-                        this.ctx.moveTo(x, y);
-                    } else {
-                        this.ctx.lineTo(x, y);
-                    }
-                    
-                    angle += sliceAngle;
-                }
-                
-                this.ctx.closePath();
-                this.ctx.stroke();
-                
-                // Fill with translucent red
-                this.ctx.fillStyle = 'rgba(250, 36, 60, 0.1)';
-                this.ctx.fill();
-            }
-            
-            drawWaves(width, height) {
-                this.ctx.beginPath();
-                this.ctx.lineWidth = 2;
-                this.ctx.strokeStyle = 'rgba(66, 133, 244, 0.8)';
-                
-                const sliceWidth = width / this.audioData.length;
-                let x = 0;
-                
-                for (let i = 0; i < this.audioData.length; i++) {
-                    const v = this.audioData[i] / 255;
-                    const y = (v * height) / 2;
-                    
-                    if (i === 0) {
-                        this.ctx.moveTo(x, y);
-                    } else {
-                        this.ctx.lineTo(x, y);
-                    }
-                    
-                    x += sliceWidth;
-                }
-                
-                this.ctx.stroke();
-            }
-            
-            drawBars(width, height) {
-                const barWidth = width / 64;
-                let x = 0;
-                
-                for (let i = 0; i < 64; i++) {
-                    const dataIndex = Math.floor((i / 64) * this.audioData.length);
-                    const barHeight = (this.audioData[dataIndex] / 255) * height;
-                    
-                    const gradient = this.ctx.createLinearGradient(0, height - barHeight, 0, height);
-                    gradient.addColorStop(0, 'rgba(66, 133, 244, 0.8)');
-                    gradient.addColorStop(1, 'rgba(52, 168, 83, 0.8)');
-                    
-                    this.ctx.fillStyle = gradient;
-                    this.ctx.fillRect(x, height - barHeight, barWidth - 2, barHeight);
-                    
-                    x += barWidth;
-                }
-            }
-            
-            drawParticles(width, height) {
-                const centerX = width / 2;
-                const centerY = height / 2;
-                
-                for (let i = 0; i < this.audioData.length; i += 4) {
-                    const value = this.audioData[i];
-                    const angle = (i / this.audioData.length) * Math.PI * 2;
-                    const radius = (value / 255) * Math.min(width, height) * 0.3;
-                    
-                    const x = centerX + Math.cos(angle) * radius;
-                    const y = centerY + Math.sin(angle) * radius;
-                    
-                    const gradient = this.ctx.createRadialGradient(x, y, 0, x, y, 10);
-                    gradient.addColorStop(0, 'rgba(234, 67, 53, 0.8)');
-                    gradient.addColorStop(1, 'rgba(251, 188, 5, 0.3)');
-                    
-                    this.ctx.beginPath();
-                    this.ctx.arc(x, y, 5 + (value / 255) * 15, 0, Math.PI * 2);
-                    this.ctx.fillStyle = gradient;
-                    this.ctx.fill();
-                }
-            }
-            
-            drawSpectrum(width, height) {
-                // Draw frequency spectrum
-                this.ctx.beginPath();
-                
-                for (let i = 0; i < this.audioData.length; i++) {
-                    const value = this.audioData[i];
-                    const percent = value / 255;
-                    const x = (i / this.audioData.length) * width;
-                    const y = height - (percent * height);
-                    
-                    if (i === 0) {
-                        this.ctx.moveTo(x, y);
-                    } else {
-                        this.ctx.lineTo(x, y);
-                    }
-                }
-                
-                this.ctx.strokeStyle = 'rgba(66, 133, 244, 0.6)';
-                this.ctx.lineWidth = 1;
-                this.ctx.stroke();
-                
-                // Fill under the curve
-                this.ctx.lineTo(width, height);
-                this.ctx.lineTo(0, height);
-                this.ctx.closePath();
-                
-                const gradient = this.ctx.createLinearGradient(0, 0, 0, height);
-                gradient.addColorStop(0, 'rgba(66, 133, 244, 0.3)');
-                gradient.addColorStop(1, 'rgba(66, 133, 244, 0.05)');
-                
-                this.ctx.fillStyle = gradient;
-                this.ctx.fill();
-            }
-            
-            drawSphere(width, height) {
-                const centerX = width / 2;
-                const centerY = height / 2;
-                const maxRadius = Math.min(width, height) * 0.4;
-                
-                // Draw 3D sphere effect
-                for (let i = 0; i < this.audioData.length; i += 2) {
-                    const value = this.audioData[i];
-                    const angle = (i / this.audioData.length) * Math.PI * 2;
-                    const radius = (value / 255) * maxRadius;
-                    
-                    // Calculate 3D position
-                    const x = centerX + Math.cos(angle) * radius;
-                    const y = centerY + Math.sin(angle) * radius;
-                    
-                    // Create depth effect
-                    const depth = Math.sin(angle * 2) * 0.5 + 0.5;
-                    const size = 5 + (value / 255) * 20 * depth;
-                    
-                    const gradient = this.ctx.createRadialGradient(x, y, 0, x, y, size);
-                    gradient.addColorStop(0, 'rgba(66, 133, 244, 0.9)');
-                    gradient.addColorStop(1, 'rgba(52, 168, 83, 0.3)');
-                    
-                    this.ctx.beginPath();
-                    this.ctx.arc(x, y, size, 0, Math.PI * 2);
-                    this.ctx.fillStyle = gradient;
-                    this.ctx.fill();
-                }
-            }
-            
-            stopVisualization() {
-                if (this.visualizationInterval) {
-                    clearInterval(this.visualizationInterval);
-                    this.visualizationInterval = null;
-                }
-                
-                // Clear canvas
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            }
-            
-            togglePlayback() {
-                if (!this.currentMedia) {
-                    if (this.files.length > 0) {
-                        this.loadFile(0);
-                        this.play();
-                    }
-                    return;
-                }
-                
-                if (this.isPlaying) {
-                    this.pause();
-                } else {
-                    this.play();
-                }
-            }
-            
-            play() {
-                if (!this.currentMedia) return;
-                
-                // Resume audio context if needed
-                if (this.audioContext && this.audioContext.state === 'suspended') {
-                    this.audioContext.resume();
-                }
-                
-                if (this.currentMedia instanceof HTMLAudioElement || 
-                    this.currentMedia instanceof HTMLVideoElement) {
-                    this.currentMedia.play()
-                        .then(() => {
-                            this.isPlaying = true;
-                            this.elements.playIcon.className = 'fas fa-pause';
-                            
-                            // Start visualization for audio
-                            if (this.files[this.currentIndex]?.type === 'audio') {
-                                this.startVisualization();
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Playback error:', error);
-                            alert('Error playing media. The file might be corrupted.');
-                        });
-                }
-            }
-            
-            pause() {
-                if (!this.currentMedia) return;
-                
-                if (this.currentMedia instanceof HTMLAudioElement || 
-                    this.currentMedia instanceof HTMLVideoElement) {
-                    this.currentMedia.pause();
-                    this.isPlaying = false;
-                    this.elements.playIcon.className = 'fas fa-play';
-                    
-                    // Stop visualization
-                    this.stopVisualization();
-                }
-            }
-            
-            previous() {
-                if (this.files.length === 0) return;
-                
-                let newIndex = this.currentIndex - 1;
-                if (newIndex < 0) newIndex = this.files.length - 1;
-                
-                this.loadFile(newIndex);
-                
-                if (this.isPlaying) {
-                    setTimeout(() => this.play(), 100);
-                }
-            }
-            
-            next() {
-                if (this.files.length === 0) return;
-                
-                let newIndex = this.currentIndex + 1;
-                if (newIndex >= this.files.length) newIndex = 0;
-                
-                this.loadFile(newIndex);
-                
-                if (this.isPlaying) {
-                    setTimeout(() => this.play(), 100);
-                }
-            }
-            
-            toggleShuffle() {
-                const btn = this.elements.shuffleBtn;
-                const isActive = btn.style.color === 'var(--primary)';
-                
-                if (isActive) {
-                    btn.style.color = '';
-                } else {
-                    btn.style.color = 'var(--primary)';
-                }
-            }
-            
-            toggleRepeat() {
-                const btn = this.elements.repeatBtn;
-                const isActive = btn.style.color === 'var(--primary)';
-                
-                if (isActive) {
-                    btn.style.color = '';
-                } else {
-                    btn.style.color = 'var(--primary)';
-                }
-            }
-            
-            updateProgress(media) {
-                const current = media.currentTime;
-                const duration = media.duration;
-                
-                if (isNaN(duration)) return;
-                
-                const progress = (current / duration) * 100;
-                this.elements.progress.style.width = `${progress}%`;
-                this.elements.currentTime.textContent = this.formatTime(current);
-            }
-            
-            seek(event) {
-                if (!this.currentMedia || !(this.currentMedia instanceof HTMLMediaElement)) return;
-                
-                const rect = this.elements.progressBar.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const width = rect.width;
-                const seekTime = (x / width) * this.currentMedia.duration;
-                
-                this.currentMedia.currentTime = seekTime;
-            }
-            
-            setVolume(value) {
-                this.volume = value / 100;
-                this.elements.volumePercent.textContent = `${value}%`;
-                
-                if (this.currentMedia instanceof HTMLMediaElement) {
-                    this.currentMedia.volume = this.volume;
-                }
-                
-                if (this.gainNode) {
-                    this.gainNode.gain.value = this.volume;
-                }
-            }
-            
-            toggleFullscreen() {
-                if (!this.isFullscreen) {
-                    document.documentElement.requestFullscreen().catch(err => {
-                        console.error('Fullscreen error:', err);
-                    });
-                } else {
-                    document.exitFullscreen();
-                }
-            }
-            
-            updateFullscreenButton() {
-                const icon = this.elements.fullscreenBtn.querySelector('i');
-                icon.className = this.isFullscreen ? 'fas fa-compress' : 'fas fa-expand';
-            }
-            
-            setBitrate(bitrate) {
-                this.currentBitrate = bitrate;
-                
-                // Update UI
-                this.elements.bitrateButtons.forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.bitrate === bitrate);
-                });
-                
-                // Apply settings
-                this.applyBitrateSettings();
-            }
-            
-            setEnhancement(enhancement) {
-                this.currentEnhancement = enhancement;
-                
-                // Update UI
-                this.elements.enhancementButtons.forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.enhancement === enhancement);
-                    btn.classList.toggle('apple-active', false);
-                });
-                
-                // Apply enhancement
-                this.applyAudioEnhancement();
-            }
-            
-            setDevice(device) {
-                this.currentDevice = device;
-                
-                // Update UI
-                this.elements.deviceButtons.forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.device === device);
-                });
-                
-                // Apply optimization
-                this.applyDeviceOptimization();
-            }
-            
-            setVisualization(viz) {
-                this.currentVisualization = viz;
-                
-                // Update UI
-                this.elements.vizButtons.forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.viz === viz);
-                });
-            }
-            
-            updateAudioStats() {
-                // Update sample rate display
-                if (this.audioContext) {
-                    this.elements.sampleRate.textContent = (this.audioContext.sampleRate / 1000).toFixed(1);
-                }
-            }
-            
-            formatFileSize(bytes) {
-                if (bytes < 1024) return bytes + ' B';
-                if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-                return (bytes / 1048576).toFixed(1) + ' MB';
-            }
-            
-            formatTime(seconds) {
-                if (isNaN(seconds)) return '0:00';
-                
-                const mins = Math.floor(seconds / 60);
-                const secs = Math.floor(seconds % 60);
-                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-            }
-        }
+                        <button class="icon-btn" id="btn-next" title="Next">
+                            <span class="material-symbols-rounded">skip_next</span>
+                        </button>
+                        <button class="icon-btn" id="btn-repeat" title="Repeat">
+                            <span class="material-symbols-rounded">repeat</span>
+                        </button>
+                    </div>
+
+                    <div class="side-controls">
+                        <span class="material-symbols-rounded">volume_down</span>
+                        <div class="volume-slider-container">
+                            <input type="range" id="volume-slider" min="0" max="100" value="80">
+                        </div>
+                        <span class="material-symbols-rounded">volume_up</span>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script>
+/**
+ * Pro Media Player Engine (Real DSP)
+ * Fixing the clipping/choppiness by utilizing a strict Audio Node Graph
+ * Source -> [Effects Chain] -> Limiter -> MasterVolume -> Analyser -> Destination
+ */
+class HighFidelityPlayer {
+    constructor() {
+        this.files = [];
+        this.currentIndex = -1;
+        this.isPlaying = false;
+        this.volume = 0.8;
+        this.dspMode = 'flat';
+        this.vizMode = 'fluid';
         
-        // Initialize player
-        document.addEventListener('DOMContentLoaded', () => {
-            window.player = new ProMediaPlayer();
+        // Media Element Setup
+        this.audioElement = new Audio();
+        this.audioElement.crossOrigin = "anonymous";
+        this.videoElement = document.getElementById('media-video');
+        this.imageElement = document.getElementById('media-image');
+        
+        // Active media pointer
+        this.activeMedia = this.audioElement; 
+
+        // Web Audio API Context & Nodes
+        this.audioCtx = null;
+        this.sourceNode = null;
+        this.videoSourceNode = null;
+        this.masterGain = null;
+        this.limiterNode = null;
+        this.analyser = null;
+        this.effectNodes = []; // Array to hold active Biquads/Panners for easy cleanup
+
+        // Visualization
+        this.canvas = document.getElementById('visualizer-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.animFrameId = null;
+        this.resizeCanvas();
+        window.addEventListener('resize', () => this.resizeCanvas());
+
+        this.initDOM();
+        this.bindEvents();
+    }
+
+    initDOM() {
+        this.dom = {
+            uploadZone: document.getElementById('upload-zone'),
+            fileInput: document.getElementById('file-input'),
+            fileList: document.getElementById('file-list'),
+            
+            title: document.getElementById('track-title'),
+            meta: document.getElementById('track-meta'),
+            qualTag: document.getElementById('quality-tag'),
+            qualText: document.getElementById('quality-text'),
+            
+            playBtn: document.getElementById('btn-play'),
+            playIcon: document.getElementById('play-icon'),
+            prevBtn: document.getElementById('btn-prev'),
+            nextBtn: document.getElementById('btn-next'),
+            
+            progTrack: document.getElementById('progress-track'),
+            progFill: document.getElementById('progress-fill'),
+            timeCur: document.getElementById('time-current'),
+            timeTot: document.getElementById('time-total'),
+            
+            volSlider: document.getElementById('volume-slider'),
+            dspBtns: document.querySelectorAll('.option-btn[data-dsp]'),
+            vizBtns: document.querySelectorAll('.viz-tab'),
+            
+            statSr: document.getElementById('stat-sr'),
+            fullBtn: document.getElementById('btn-fullscreen')
+        };
+    }
+
+    bindEvents() {
+        // Upload Handlers
+        this.dom.uploadZone.addEventListener('click', () => this.dom.fileInput.click());
+        this.dom.uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); this.dom.uploadZone.classList.add('dragover'); });
+        this.dom.uploadZone.addEventListener('dragleave', () => this.dom.uploadZone.classList.remove('dragover'));
+        this.dom.uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            this.dom.uploadZone.classList.remove('dragover');
+            this.handleFiles(e.dataTransfer.files);
         });
-    </script>
+        this.dom.fileInput.addEventListener('change', (e) => this.handleFiles(e.target.files));
+
+        // Playback Core Events
+        this.dom.playBtn.addEventListener('click', () => this.togglePlay());
+        this.dom.prevBtn.addEventListener('click', () => this.playPrev());
+        this.dom.nextBtn.addEventListener('click', () => this.playNext());
+        
+        // Progress update & seek
+        this.audioElement.addEventListener('timeupdate', () => this.updateProgress());
+        this.videoElement.addEventListener('timeupdate', () => this.updateProgress());
+        this.audioElement.addEventListener('ended', () => this.playNext());
+        this.videoElement.addEventListener('ended', () => this.playNext());
+        this.dom.progTrack.addEventListener('click', (e) => this.seek(e));
+
+        // Volume & Settings
+        this.dom.volSlider.addEventListener('input', (e) => this.setVolume(e.target.value / 100));
+        
+        this.dom.dspBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.dom.dspBtns.forEach(b => b.classList.remove('active', 'apple-active'));
+                const mode = e.currentTarget.dataset.dsp;
+                if(mode === 'apple_music') e.currentTarget.classList.add('apple-active');
+                else e.currentTarget.classList.add('active');
+                this.setDSP(mode);
+            });
+        });
+
+        this.dom.vizBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.dom.vizBtns.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                this.vizMode = e.target.dataset.viz;
+            });
+        });
+
+        this.dom.fullBtn.addEventListener('click', () => {
+            const el = document.getElementById('display-container');
+            if (!document.fullscreenElement) el.requestFullscreen().catch(err=>{});
+            else document.exitFullscreen();
+        });
+    }
+
+    // --- File Handling ---
+    handleFiles(fileList) {
+        if (!fileList.length) return;
+        for(let f of fileList) {
+            const type = f.type.startsWith('video') ? 'video' : (f.type.startsWith('image') ? 'image' : 'audio');
+            this.files.push({
+                name: f.name,
+                url: URL.createObjectURL(f),
+                type: type,
+                size: (f.size / (1024*1024)).toFixed(1) + ' MB'
+            });
+        }
+        this.renderFileList();
+        if(this.currentIndex === -1) this.loadMedia(0);
+    }
+
+    renderFileList() {
+        this.dom.fileList.innerHTML = '';
+        this.files.forEach((f, idx) => {
+            const div = document.createElement('div');
+            div.className = `file-item ${idx === this.currentIndex ? 'active' : ''}`;
+            const icon = f.type === 'video' ? 'movie' : (f.type === 'image' ? 'image' : 'audio_file');
+            
+            div.innerHTML = `
+                <div class="file-icon"><span class="material-symbols-rounded">${icon}</span></div>
+                <div class="file-details">
+                    <span class="file-name">${f.name}</span>
+                    <span class="file-meta">${f.type.toUpperCase()} • ${f.size}</span>
+                </div>
+            `;
+            div.addEventListener('click', () => {
+                this.loadMedia(idx);
+                this.play();
+            });
+            this.dom.fileList.appendChild(div);
+        });
+    }
+
+    // --- Media Loading ---
+    loadMedia(index) {
+        if(index < 0 || index >= this.files.length) return;
+        this.pause();
+        
+        this.currentIndex = index;
+        const file = this.files[index];
+        
+        // Reset Displays
+        this.canvas.classList.add('hidden');
+        this.videoElement.classList.add('hidden');
+        this.imageElement.classList.add('hidden');
+
+        this.dom.title.textContent = file.name;
+        this.dom.meta.textContent = `${file.type.toUpperCase()} • ${file.size}`;
+        
+        // Initialize Audio Context on first load to bypass browser auto-play policies safely
+        if(!this.audioCtx) this.initAudioEngine();
+
+        if (file.type === 'video') {
+            this.activeMedia = this.videoElement;
+            this.videoElement.src = file.url;
+            this.videoElement.classList.remove('hidden');
+            this.canvas.classList.remove('hidden'); // Overlay viz on video
+            this.dom.qualText.textContent = "HD Video Audio";
+            this.dom.qualTag.style.color = "var(--md-sys-color-primary)";
+        } else if (file.type === 'image') {
+            this.activeMedia = null; // No audio
+            this.imageElement.src = file.url;
+            this.imageElement.classList.remove('hidden');
+            this.dom.qualText.textContent = "High-Res Image";
+        } else {
+            this.activeMedia = this.audioElement;
+            this.audioElement.src = file.url;
+            this.canvas.classList.remove('hidden');
+            this.dom.qualText.textContent = "Lossless Audio";
+        }
+
+        // Apply visual updates
+        document.querySelectorAll('.file-item').forEach((el, i) => {
+            el.classList.toggle('active', i === index);
+        });
+
+        // Ensure DSP chain is built for the new media
+        this.buildDSPChain();
+    }
+
+    // --- Core Audio Engine & DSP (The Fix) ---
+    initAudioEngine() {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        this.audioCtx = new AudioContext();
+        
+        // Update stats
+        this.dom.statSr.textContent = (this.audioCtx.sampleRate / 1000).toFixed(1);
+
+        // Create main fixed nodes
+        this.masterGain = this.audioCtx.createGain();
+        this.masterGain.gain.value = this.volume;
+        
+        this.analyser = this.audioCtx.createAnalyser();
+        this.analyser.fftSize = 4096; // High res
+        this.analyser.smoothingTimeConstant = 0.85;
+
+        // **CRITICAL FIX: The Brickwall Limiter**
+        // This prevents the audio from clipping/distorting when heavy bass/EQ is applied.
+        this.limiterNode = this.audioCtx.createDynamicsCompressor();
+        this.limiterNode.threshold.value = -0.5; // Do not allow above -0.5dB
+        this.limiterNode.knee.value = 0.0;
+        this.limiterNode.ratio.value = 20.0; // Hard limit
+        this.limiterNode.attack.value = 0.001; // Fast catch
+        this.limiterNode.release.value = 0.1;
+
+        // Permanent End Chain: Limiter -> MasterGain -> Analyser -> Destination
+        this.limiterNode.connect(this.masterGain);
+        this.masterGain.connect(this.analyser);
+        this.analyser.connect(this.audioCtx.destination);
+
+        // Create Source Nodes
+        this.sourceNode = this.audioCtx.createMediaElementSource(this.audioElement);
+        // Catch DOMException if video already connected
+        try { this.videoSourceNode = this.audioCtx.createMediaElementSource(this.videoElement); } catch(e){}
+
+        this.startVisualizer();
+    }
+
+    setDSP(mode) {
+        this.dspMode = mode;
+        this.buildDSPChain();
+        
+        // Update tag UI based on mode
+        if(mode === 'apple_music') {
+            this.dom.qualText.textContent = "Apple Lossless";
+            this.dom.qualTag.style.background = "var(--apple-red-container)";
+            this.dom.qualTag.style.color = "var(--apple-red)";
+        } else {
+            this.dom.qualTag.style.background = "rgba(208, 188, 255, 0.15)";
+            this.dom.qualTag.style.color = "var(--md-sys-color-primary)";
+            
+            if(mode === 'airpods') this.dom.qualText.textContent = "AirPods Optimized";
+            else if(mode === 'dolby') this.dom.qualText.textContent = "Spatial Audio";
+            else this.dom.qualText.textContent = "Hi-Res Ready";
+        }
+    }
+
+    buildDSPChain() {
+        if(!this.audioCtx) return;
+
+        // 1. Disconnect current sources and old effects
+        this.sourceNode.disconnect();
+        if(this.videoSourceNode) this.videoSourceNode.disconnect();
+        
+        this.effectNodes.forEach(node => node.disconnect());
+        this.effectNodes = [];
+
+        let currentInput = (this.activeMedia === this.videoElement && this.videoSourceNode) 
+            ? this.videoSourceNode : this.sourceNode;
+
+        // 2. Build new effect chain based on mode
+        let lastNode = currentInput;
+
+        const addBiquad = (type, freq, gain, q = 1) => {
+            const eq = this.audioCtx.createBiquadFilter();
+            eq.type = type; eq.frequency.value = freq; eq.gain.value = gain; eq.Q.value = q;
+            lastNode.connect(eq);
+            lastNode = eq;
+            this.effectNodes.push(eq);
+        };
+
+        switch(this.dspMode) {
+            case 'apple_music':
+                // Studio Reference: Very clean, minor presence boost
+                addBiquad('lowshelf', 80, 1.5);    // Slight warmth
+                addBiquad('highshelf', 10000, 1.0); // Air
+                break;
+
+            case 'airpods':
+                // Compensates for typical earbud physics
+                addBiquad('lowshelf', 120, 3.5);   // Driver bass compensation
+                addBiquad('peaking', 2500, 2.0, 0.8); // Vocal forwardness
+                addBiquad('highshelf', 8000, -1.0); // De-harsh high end
+                break;
+
+            case 'dolby':
+                // Cinematic Spatial using Haas Effect (Delay on one channel for width)
+                const splitter = this.audioCtx.createChannelSplitter(2);
+                const merger = this.audioCtx.createChannelMerger(2);
+                
+                // Route Mid/Sides for widening
+                const delayRight = this.audioCtx.createDelay();
+                delayRight.delayTime.value = 0.015; // 15ms delay is the sweet spot for Haas effect (not robotic)
+                
+                // Enhance lows and highs for cinematic feel
+                const cinemaEq = this.audioCtx.createBiquadFilter();
+                cinemaEq.type = 'lowshelf'; cinemaEq.frequency.value = 60; cinemaEq.gain.value = 4.0;
+                
+                lastNode.connect(cinemaEq);
+                cinemaEq.connect(splitter);
+                
+                // Left channel direct
+                splitter.connect(merger, 0, 0);
+                // Right channel delayed slightly
+                splitter.connect(delayRight, 1);
+                delayRight.connect(merger, 0, 1);
+                
+                lastNode = merger;
+                this.effectNodes.push(cinemaEq, splitter, delayRight, merger);
+                break;
+
+            case 'bass_boost':
+                // Deep, distortion-free bass thanks to the Limiter
+                addBiquad('lowshelf', 70, 8.0);
+                addBiquad('peaking', 120, 2.0, 1.2); // Punch
+                break;
+                
+            case 'flat':
+            default:
+                // Direct connection, no extra nodes added
+                break;
+        }
+
+        // 3. Connect to Limiter (End of chain)
+        lastNode.connect(this.limiterNode);
+    }
+
+    // --- Playback Controls ---
+    togglePlay() {
+        if(!this.activeMedia) return;
+        if(this.audioCtx && this.audioCtx.state === 'suspended') this.audioCtx.resume();
+
+        if(this.isPlaying) this.pause();
+        else this.play();
+    }
+
+    play() {
+        if(!this.activeMedia) return;
+        this.activeMedia.play().then(() => {
+            this.isPlaying = true;
+            this.dom.playIcon.textContent = 'pause';
+        }).catch(e => console.error("Playback error:", e));
+    }
+
+    pause() {
+        if(!this.activeMedia) return;
+        this.activeMedia.pause();
+        this.isPlaying = false;
+        this.dom.playIcon.textContent = 'play_arrow';
+    }
+
+    playNext() {
+        let nxt = this.currentIndex + 1;
+        if(nxt >= this.files.length) nxt = 0; // loop
+        if(this.files.length > 0) {
+            this.loadMedia(nxt);
+            this.play();
+        }
+    }
+
+    playPrev() {
+        let prv = this.currentIndex - 1;
+        if(prv < 0) prv = this.files.length - 1;
+        if(this.files.length > 0) {
+            this.loadMedia(prv);
+            this.play();
+        }
+    }
+
+    setVolume(val) {
+        this.volume = val;
+        if(this.masterGain) this.masterGain.gain.value = val;
+    }
+
+    seek(e) {
+        if(!this.activeMedia) return;
+        const rect = this.dom.progTrack.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        this.activeMedia.currentTime = percent * this.activeMedia.duration;
+    }
+
+    updateProgress() {
+        if(!this.activeMedia || isNaN(this.activeMedia.duration)) return;
+        const cur = this.activeMedia.currentTime;
+        const tot = this.activeMedia.duration;
+        this.dom.progFill.style.width = `${(cur / tot) * 100}%`;
+        this.dom.timeCur.textContent = this.formatTime(cur);
+        this.dom.timeTot.textContent = this.formatTime(tot);
+    }
+
+    formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    // --- Visualization Canvas ---
+    resizeCanvas() {
+        const cont = document.getElementById('display-container');
+        this.canvas.width = cont.clientWidth;
+        this.canvas.height = cont.clientHeight;
+    }
+
+    startVisualizer() {
+        const bufferLength = this.analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        
+        const draw = () => {
+            this.animFrameId = requestAnimationFrame(draw);
+            if(!this.isPlaying && this.activeMedia) return; // Keep rendering if paused but don't compute heavy math
+
+            this.analyser.getByteFrequencyData(dataArray);
+            const w = this.canvas.width;
+            const h = this.canvas.height;
+            const ctx = this.ctx;
+
+            // Clear with slight trail effect
+            ctx.fillStyle = 'rgba(0,0,0,0.2)';
+            ctx.fillRect(0, 0, w, h);
+
+            if(this.vizMode === 'fluid') this.drawFluid(ctx, w, h, dataArray, bufferLength);
+            else if(this.vizMode === 'bars') this.drawBars(ctx, w, h, dataArray, bufferLength);
+            else if(this.vizMode === 'wave') this.drawWave(ctx, w, h, dataArray, bufferLength);
+            else if(this.vizMode === 'apple') this.drawAppleCore(ctx, w, h, dataArray, bufferLength);
+        };
+        draw();
+    }
+
+    drawBars(ctx, w, h, data, len) {
+        const barCount = 128;
+        const barW = (w / barCount) - 1;
+        let x = 0;
+        
+        for(let i = 0; i < barCount; i++) {
+            // Map linearly for better visualization
+            const dataIdx = Math.floor(i * (len / 4 / barCount)); 
+            const val = data[dataIdx] / 255;
+            const barH = val * h * 0.8;
+            
+            // M3 Primary gradient
+            const gradient = ctx.createLinearGradient(0, h, 0, h - barH);
+            gradient.addColorStop(0, '#D0BCFF');
+            gradient.addColorStop(1, '#EFB8C8');
+            
+            ctx.fillStyle = gradient;
+            
+            // Add slight glow
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = '#D0BCFF';
+            
+            // Rounded top bar
+            ctx.beginPath();
+            ctx.roundRect(x, h - barH, barW, barH, [4, 4, 0, 0]);
+            ctx.fill();
+            
+            x += barW + 1;
+        }
+        ctx.shadowBlur = 0; // reset
+    }
+
+    drawWave(ctx, w, h, data, len) {
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#D0BCFF';
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#D0BCFF';
+        ctx.beginPath();
+        
+        const sliceWidth = w / 256;
+        let x = 0;
+        
+        // Use time domain for true oscilloscope, but freq data creates a cool terrain
+        for(let i = 0; i < 256; i++) {
+            const dataIdx = Math.floor(i * (len/4 / 256));
+            const v = data[dataIdx] / 128.0; 
+            const y = h/2 - (v * h/4) + (h/4);
+            
+            if(i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+            x += sliceWidth;
+        }
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+    }
+
+    drawFluid(ctx, w, h, data, len) {
+        const cx = w / 2;
+        const cy = h / 2;
+        const radius = Math.min(w, h) * 0.2;
+        
+        // Compute average bass
+        let bassAvg = 0;
+        for(let i=0; i<10; i++) bassAvg += data[i];
+        bassAvg /= 10;
+        const kickScale = 1 + (bassAvg/255)*0.3;
+
+        ctx.lineWidth = 2;
+        ctx.lineJoin = 'round';
+        
+        // Draw expanding circles based on freq bins
+        for(let j = 0; j < 3; j++) {
+            ctx.beginPath();
+            const offset = j * 40;
+            
+            for(let i = 0; i <= 180; i++) {
+                const dataIdx = Math.floor(i * (len/8 / 180));
+                const val = data[dataIdx] / 255;
+                const rad = radius * kickScale + (val * 100) + offset;
+                const theta = (i / 180) * Math.PI * 2;
+                
+                const x = cx + Math.cos(theta) * rad;
+                const y = cy + Math.sin(theta) * rad;
+                
+                if(i===0) ctx.moveTo(x,y);
+                else ctx.lineTo(x,y);
+            }
+            ctx.closePath();
+            
+            ctx.strokeStyle = `hsla(${260 + j*20}, 80%, 70%, ${1 - j*0.2})`;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = ctx.strokeStyle;
+            ctx.stroke();
+        }
+        ctx.shadowBlur = 0;
+    }
+
+    drawAppleCore(ctx, w, h, data, len) {
+        const cx = w / 2;
+        const cy = h / 2;
+        const radius = Math.min(w, h) * 0.25;
+        
+        ctx.fillStyle = 'rgba(250, 36, 60, 0.05)';
+        ctx.fillRect(0,0,w,h); // Slight red tint background
+
+        ctx.beginPath();
+        ctx.lineWidth = 4;
+        
+        const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 2);
+        gradient.addColorStop(0, '#FA243C');
+        gradient.addColorStop(1, '#FF7B89');
+        ctx.strokeStyle = gradient;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = '#FA243C';
+
+        let angle = 0;
+        const points = 120;
+        const slice = (Math.PI * 2) / points;
+
+        for(let i = 0; i <= points; i++) {
+            const dataIdx = Math.floor((i % points) * (len/6 / points));
+            const val = data[dataIdx] / 255;
+            
+            // Create a pulsating core
+            const r = radius + (val * radius);
+            const x = cx + Math.cos(angle) * r;
+            const y = cy + Math.sin(angle) * r;
+            
+            if(i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+            
+            angle += slice;
+        }
+        ctx.closePath();
+        ctx.stroke();
+        
+        // Inner core
+        ctx.beginPath();
+        let bass = data[2] / 255;
+        ctx.arc(cx, cy, radius * 0.5 * (1 + bass), 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(250, 36, 60, 0.2)';
+        ctx.fill();
+        
+        ctx.shadowBlur = 0;
+    }
+}
+
+// Init App
+document.addEventListener('DOMContentLoaded', () => {
+    window.playerEngine = new HighFidelityPlayer();
+});
+</script>
 </body>
 </html>
