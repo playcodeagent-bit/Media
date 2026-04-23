@@ -27,539 +27,111 @@
             --md-sys-color-on-primary-container: #EADDFF;
             --md-sys-color-secondary: #CCC2DC;
             --md-sys-color-secondary-container: #4A4458;
-            --md-sys-color-tertiary: #EFB8C8;
-            --md-sys-color-outline: #938F99;
             
-            /* Branding Colors */
             --apple-red: #FA243C;
             --apple-red-container: rgba(250, 36, 60, 0.15);
-            --dolby-blue: #00A1DF;
+            --alac-gold: #FFD700;
+            --alac-gold-container: rgba(255, 215, 0, 0.15);
             
             --border-radius-sm: 8px;
             --border-radius-md: 16px;
             --border-radius-lg: 24px;
             --border-radius-full: 9999px;
-            
             --transition-standard: 0.2s cubic-bezier(0.2, 0, 0, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Google Sans', Roboto, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Google Sans', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        .material-symbols-rounded { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; vertical-align: middle; }
+        .container { max-width: 1600px; margin: 0 auto; padding: 24px; width: 100%; display: flex; flex-direction: column; gap: 24px; flex: 1; }
 
-        body {
-            background-color: var(--md-sys-color-background);
-            color: var(--md-sys-color-on-background);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background-color: var(--md-sys-color-surface-container); border-radius: var(--border-radius-full); }
+        .logo-area { display: flex; align-items: center; gap: 16px; }
+        .logo-icon { width: 48px; height: 48px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); border-radius: var(--border-radius-full); display: flex; align-items: center; justify-content: center; font-size: 28px; }
+        .logo-text h1 { font-size: 22px; font-weight: 500; }
+        .logo-text p { font-size: 14px; color: var(--md-sys-color-on-surface-variant); }
 
-        .material-symbols-rounded {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            display: inline-block;
-            vertical-align: middle;
-        }
+        .m3-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; border-radius: var(--border-radius-full); border: none; font-weight: 500; cursor: pointer; transition: all var(--transition-standard); }
+        .btn-tonal { background-color: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-surface); }
+        .btn-tonal:hover { background-color: #5d566e; }
 
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 24px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            flex: 1;
-        }
+        .main-grid { display: grid; grid-template-columns: 360px 1fr; gap: 24px; flex: 1; }
+        .m3-card { background-color: var(--md-sys-color-surface-container); border-radius: var(--border-radius-lg); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+        .card-header { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 500; color: var(--md-sys-color-primary); }
 
-        /* --- Header M3 Style --- */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            background-color: var(--md-sys-color-surface-container);
-            border-radius: var(--border-radius-full);
-        }
+        .upload-zone { border: 2px dashed var(--md-sys-color-outline); border-radius: var(--border-radius-md); padding: 32px 16px; text-align: center; cursor: pointer; transition: all var(--transition-standard); background: rgba(255,255,255,0.02); }
+        .upload-zone:hover { border-color: var(--md-sys-color-primary); background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+        .upload-zone .material-symbols-rounded { font-size: 40px; margin-bottom: 8px; }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+        .file-list { max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 4px; }
+        .file-list::-webkit-scrollbar { width: 6px; }
+        .file-list::-webkit-scrollbar-thumb { background: var(--md-sys-color-surface-variant); border-radius: var(--border-radius-full); }
+        .file-item { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-radius: var(--border-radius-md); background: var(--md-sys-color-surface-container-high); cursor: pointer; transition: background var(--transition-standard); }
+        .file-item:hover { background: var(--md-sys-color-surface-variant); }
+        .file-item.active { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+        .file-icon { width: 40px; height: 40px; border-radius: var(--border-radius-sm); background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; }
+        .file-details { display: flex; flex-direction: column; overflow: hidden; flex: 1; }
+        .file-name { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .file-meta { font-size: 12px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px; }
 
-        .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-            border-radius: var(--border-radius-full);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-        }
+        .option-list { display: flex; flex-direction: column; gap: 8px; }
+        .option-btn { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: var(--border-radius-md); background: transparent; border: 1px solid var(--md-sys-color-outline); color: var(--md-sys-color-on-surface); cursor: pointer; transition: all var(--transition-standard); text-align: left; }
+        .option-btn:hover { background: var(--md-sys-color-surface-container-high); }
+        .option-btn.active { background: var(--md-sys-color-primary-container); border-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+        .option-btn.apple-active { background: var(--apple-red-container); border-color: var(--apple-red); color: #fff; }
+        .option-btn.alac-active { background: var(--alac-gold-container); border-color: var(--alac-gold); color: #fff; }
+        .option-left { display: flex; align-items: center; gap: 12px; }
 
-        .logo-text h1 {
-            font-size: 22px;
-            font-weight: 500;
-            letter-spacing: 0.1px;
-        }
-
-        .logo-text p {
-            font-size: 14px;
-            color: var(--md-sys-color-on-surface-variant);
-        }
-
-        .m3-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            border-radius: var(--border-radius-full);
-            border: none;
-            font-weight: 500;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color var(--transition-standard), transform var(--transition-standard);
-        }
-
-        .m3-btn:active {
-            transform: scale(0.98);
-        }
-
-        .btn-filled {
-            background-color: var(--md-sys-color-primary);
-            color: var(--md-sys-color-on-primary);
-        }
-
-        .btn-filled:hover {
-            background-color: #EADDFF; /* Lighter tint for hover */
-        }
-
-        .btn-tonal {
-            background-color: var(--md-sys-color-secondary-container);
-            color: var(--md-sys-color-on-surface);
-        }
-
-        .btn-tonal:hover {
-            background-color: #5d566e;
-        }
-
-        /* --- Layout Grid --- */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 360px 1fr;
-            gap: 24px;
-            flex: 1;
-        }
-
-        /* --- Sidebar & Cards --- */
-        .m3-card {
-            background-color: var(--md-sys-color-surface-container);
-            border-radius: var(--border-radius-lg);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 18px;
-            font-weight: 500;
-            color: var(--md-sys-color-primary);
-        }
-
-        /* Upload Area */
-        .upload-zone {
-            border: 2px dashed var(--md-sys-color-outline);
-            border-radius: var(--border-radius-md);
-            padding: 32px 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: all var(--transition-standard);
-            background: rgba(255,255,255,0.02);
-        }
-
-        .upload-zone:hover, .upload-zone.dragover {
-            border-color: var(--md-sys-color-primary);
-            background: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-        }
-
-        .upload-zone .material-symbols-rounded {
-            font-size: 40px;
-            margin-bottom: 8px;
-            color: inherit;
-        }
-
-        /* File List */
-        .file-list {
-            max-height: 250px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding-right: 4px;
-        }
-
-        .file-list::-webkit-scrollbar {
-            width: 6px;
-        }
-        .file-list::-webkit-scrollbar-thumb {
-            background: var(--md-sys-color-surface-variant);
-            border-radius: var(--border-radius-full);
-        }
-
-        .file-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 12px 16px;
-            border-radius: var(--border-radius-md);
-            background: var(--md-sys-color-surface-container-high);
-            cursor: pointer;
-            transition: background var(--transition-standard);
-        }
-
-        .file-item:hover {
-            background: var(--md-sys-color-surface-variant);
-        }
-
-        .file-item.active {
-            background: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-        }
-
-        .file-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--border-radius-sm);
-            background: rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .file-details {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            flex: 1;
-        }
-
-        .file-name {
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .file-meta {
-            font-size: 12px;
-            color: var(--md-sys-color-on-surface-variant);
-            margin-top: 4px;
-        }
-        .file-item.active .file-meta {
-            color: rgba(234, 221, 255, 0.8);
-        }
-
-        /* Lists & Options */
-        .option-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .option-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 16px;
-            border-radius: var(--border-radius-md);
-            background: transparent;
-            border: 1px solid var(--md-sys-color-outline);
-            color: var(--md-sys-color-on-surface);
-            cursor: pointer;
-            transition: all var(--transition-standard);
-            text-align: left;
-        }
-
-        .option-btn:hover {
-            background: var(--md-sys-color-surface-container-high);
-        }
-
-        .option-btn.active {
-            background: var(--md-sys-color-primary-container);
-            border-color: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-        }
-
-        .option-btn.apple-active {
-            background: var(--apple-red-container);
-            border-color: var(--apple-red);
-            color: #fff;
-        }
-
-        .option-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .badge {
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: var(--border-radius-full);
-            text-transform: uppercase;
-        }
+        .badge { font-size: 10px; font-weight: 800; padding: 4px 8px; border-radius: var(--border-radius-full); text-transform: uppercase; letter-spacing: 0.5px; }
         .badge-apple { background: var(--apple-red); color: white; }
-        .badge-pro { background: #FFD700; color: #000; }
+        .badge-alac { background: var(--alac-gold); color: #000; }
+        .badge-pro { background: #00A1DF; color: white; }
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .stat-box {
-            background: var(--md-sys-color-surface-container-high);
-            padding: 16px;
-            border-radius: var(--border-radius-md);
-            text-align: center;
-        }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .stat-box { background: var(--md-sys-color-surface-container-high); padding: 16px; border-radius: var(--border-radius-md); text-align: center; }
         .stat-val { font-size: 20px; font-weight: 500; color: var(--md-sys-color-primary); }
         .stat-lbl { font-size: 12px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px; }
 
-        /* --- Main Player Area --- */
-        .player-area {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .display-container {
-            position: relative;
-            background: #000;
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            flex: 1;
-            min-height: 450px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-        }
-
-        #media-video, #media-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            position: absolute;
-            z-index: 5;
-        }
-
-        #visualizer-canvas {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
-        }
-
+        .player-area { display: flex; flex-direction: column; gap: 24px; }
+        .display-container { position: relative; background: #000; border-radius: var(--border-radius-lg); overflow: hidden; flex: 1; min-height: 450px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+        #media-video, #media-image { width: 100%; height: 100%; object-fit: contain; position: absolute; z-index: 5; }
+        #visualizer-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .hidden { display: none !important; }
 
-        .viz-controls {
-            position: absolute;
-            bottom: 24px;
-            left: 24px;
-            z-index: 10;
-            display: flex;
-            gap: 8px;
-            background: rgba(0,0,0,0.6);
-            padding: 8px;
-            border-radius: var(--border-radius-full);
-            backdrop-filter: blur(10px);
-        }
+        .viz-controls { position: absolute; bottom: 24px; left: 24px; z-index: 10; display: flex; gap: 8px; background: rgba(0,0,0,0.6); padding: 8px; border-radius: var(--border-radius-full); backdrop-filter: blur(10px); }
+        .viz-tab { padding: 6px 16px; border-radius: var(--border-radius-full); border: none; background: transparent; color: rgba(255,255,255,0.7); font-size: 12px; cursor: pointer; transition: all var(--transition-standard); }
+        .viz-tab.active { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); }
 
-        .viz-tab {
-            padding: 6px 16px;
-            border-radius: var(--border-radius-full);
-            border: none;
-            background: transparent;
-            color: rgba(255,255,255,0.7);
-            font-size: 12px;
-            cursor: pointer;
-            transition: all var(--transition-standard);
-        }
-
-        .viz-tab.active {
-            background: var(--md-sys-color-primary);
-            color: var(--md-sys-color-on-primary);
-        }
-
-        /* --- Player Controls Bar --- */
-        .control-bar {
-            background: var(--md-sys-color-surface-container);
-            border-radius: var(--border-radius-lg);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .track-info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        .control-bar { background: var(--md-sys-color-surface-container); border-radius: var(--border-radius-lg); padding: 24px; display: flex; flex-direction: column; gap: 20px; }
+        .track-info-row { display: flex; justify-content: space-between; align-items: center; }
         .track-titles h2 { font-size: 20px; font-weight: 500; margin-bottom: 4px; }
         .track-titles p { color: var(--md-sys-color-on-surface-variant); font-size: 14px; }
+        .quality-tag { background: rgba(208, 188, 255, 0.15); color: var(--md-sys-color-primary); padding: 6px 16px; border-radius: var(--border-radius-full); font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 6px; }
 
-        .quality-tag {
-            background: rgba(208, 188, 255, 0.15);
-            color: var(--md-sys-color-primary);
-            padding: 6px 16px;
-            border-radius: var(--border-radius-full);
-            font-weight: 500;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .progress-wrapper { display: flex; flex-direction: column; gap: 8px; }
+        .progress-track { width: 100%; height: 8px; background: var(--md-sys-color-surface-container-high); border-radius: var(--border-radius-full); cursor: pointer; position: relative; overflow: hidden; }
+        .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--md-sys-color-primary); width: 0%; border-radius: var(--border-radius-full); pointer-events: none; }
+        .time-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--md-sys-color-on-surface-variant); }
 
-        /* Progress Bar */
-        .progress-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 8px;
-            background: var(--md-sys-color-surface-container-high);
-            border-radius: var(--border-radius-full);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            position: absolute;
-            top: 0; left: 0;
-            height: 100%;
-            background: var(--md-sys-color-primary);
-            width: 0%;
-            border-radius: var(--border-radius-full);
-            pointer-events: none;
-        }
-
-        .time-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--md-sys-color-on-surface-variant);
-        }
-
-        /* Main Buttons */
-        .playback-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .center-controls {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .icon-btn {
-            background: transparent;
-            border: none;
-            color: var(--md-sys-color-on-surface);
-            cursor: pointer;
-            width: 48px; height: 48px;
-            border-radius: var(--border-radius-full);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background var(--transition-standard);
-        }
-
-        .icon-btn:hover {
-            background: var(--md-sys-color-surface-variant);
-        }
-
-        .icon-btn.active {
-            color: var(--md-sys-color-primary);
-        }
-
-        .play-pause-btn {
-            width: 64px; height: 64px;
-            background: var(--md-sys-color-primary-container);
-            color: var(--md-sys-color-on-primary-container);
-            border-radius: var(--border-radius-full);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform var(--transition-standard), background var(--transition-standard);
-        }
-
+        .playback-controls { display: flex; justify-content: space-between; align-items: center; }
+        .center-controls { display: flex; align-items: center; gap: 24px; }
+        .icon-btn { background: transparent; border: none; color: var(--md-sys-color-on-surface); cursor: pointer; width: 48px; height: 48px; border-radius: var(--border-radius-full); display: flex; align-items: center; justify-content: center; transition: background var(--transition-standard); }
+        .icon-btn:hover { background: var(--md-sys-color-surface-variant); }
+        .play-pause-btn { width: 64px; height: 64px; background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); border-radius: var(--border-radius-full); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform var(--transition-standard), background var(--transition-standard); }
         .play-pause-btn .material-symbols-rounded { font-size: 32px; }
         .play-pause-btn:hover { transform: scale(1.05); background: #6246AA; color: #fff;}
         .play-pause-btn:active { transform: scale(0.95); }
 
-        .side-controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            width: 30%;
-        }
-
-        .volume-slider-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 6px;
-            background: var(--md-sys-color-surface-variant);
-            border-radius: var(--border-radius-full);
-            outline: none;
-            cursor: pointer;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--md-sys-color-primary);
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        @media (max-width: 1024px) {
-            .main-grid { grid-template-columns: 1fr; }
-            .side-controls { display: none; /* Simplify on mobile */ }
-        }
+        .side-controls { display: flex; flex-direction: column; gap: 12px; width: 30%; }
+        
+        .slider-row { display: flex; align-items: center; gap: 12px; width: 100%; }
+        .slider-label { font-size: 12px; font-weight: 700; color: var(--md-sys-color-on-surface-variant); min-width: 14px; text-align: center; }
+        
+        input[type="range"] { -webkit-appearance: none; width: 100%; height: 6px; background: var(--md-sys-color-surface-variant); border-radius: var(--border-radius-full); outline: none; cursor: pointer; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--md-sys-color-primary); box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        
+        /* Pan specific styles */
+        #pan-slider::-webkit-slider-thumb { background: var(--md-sys-color-secondary); }
     </style>
 </head>
 <body>
@@ -567,9 +139,7 @@
 <div class="container">
     <header>
         <div class="logo-area">
-            <div class="logo-icon">
-                <span class="material-symbols-rounded">graphic_eq</span>
-            </div>
+            <div class="logo-icon"><span class="material-symbols-rounded">graphic_eq</span></div>
             <div class="logo-text">
                 <h1>Material Pro Media</h1>
                 <p>Real DSP & High-Fidelity Audio</p>
@@ -577,37 +147,26 @@
         </div>
         <div class="header-actions">
             <button class="m3-btn btn-tonal" id="btn-fullscreen">
-                <span class="material-symbols-rounded">fullscreen</span>
-                Fullscreen
+                <span class="material-symbols-rounded">fullscreen</span> Fullscreen
             </button>
         </div>
     </header>
 
     <div class="main-grid">
         <aside style="display: flex; flex-direction: column; gap: 24px;">
-            
             <div class="m3-card">
-                <div class="card-header">
-                    <span class="material-symbols-rounded">library_music</span>
-                    Media Library
-                </div>
-                
+                <div class="card-header"><span class="material-symbols-rounded">library_music</span> Media Library</div>
                 <div class="upload-zone" id="upload-zone">
                     <span class="material-symbols-rounded">cloud_upload</span>
                     <p style="font-weight: 500;">Click or Drag Files Here</p>
                     <p style="font-size: 12px; color: var(--md-sys-color-on-surface-variant); margin-top: 4px;">Supports MP3, WAV, FLAC, MP4</p>
                     <input type="file" id="file-input" class="hidden" accept="audio/*, video/*, image/*" multiple>
                 </div>
-
-                <div class="file-list" id="file-list">
-                    </div>
+                <div class="file-list" id="file-list"></div>
             </div>
 
             <div class="m3-card">
-                <div class="card-header">
-                    <span class="material-symbols-rounded">tune</span>
-                    Studio DSP Profile
-                </div>
+                <div class="card-header"><span class="material-symbols-rounded">tune</span> Studio DSP Profile</div>
                 <div class="option-list">
                     <button class="option-btn active" data-dsp="flat">
                         <div class="option-left">
@@ -615,54 +174,48 @@
                             <span>Studio Flat (Direct)</span>
                         </div>
                     </button>
+                    <button class="option-btn" data-dsp="alac">
+                        <div class="option-left">
+                            <span class="material-symbols-rounded">workspace_premium</span>
+                            <span>ALAC Maximum</span>
+                        </div>
+                        <span class="badge badge-alac">LOSSLESS 24-BIT</span>
+                    </button>
                     <button class="option-btn" data-dsp="apple_music">
                         <div class="option-left">
                             <span class="material-symbols-rounded">music_note</span>
                             <span>Apple Music Signature</span>
                         </div>
-                        <span class="badge badge-apple">Lossless Feel</span>
+                        <span class="badge badge-apple">PUNCHY FEEL</span>
                     </button>
                     <button class="option-btn" data-dsp="airpods">
                         <div class="option-left">
                             <span class="material-symbols-rounded">earbuds</span>
                             <span>AirPods Optimization</span>
                         </div>
+                        <span class="badge badge-pro">VOCAL BOOST</span>
                     </button>
                     <button class="option-btn" data-dsp="dolby">
                         <div class="option-left">
                             <span class="material-symbols-rounded">surround_sound</span>
                             <span>Cinematic Spatial</span>
                         </div>
-                        <span class="badge badge-pro">Wide</span>
-                    </button>
-                    <button class="option-btn" data-dsp="bass_boost">
-                        <div class="option-left">
-                            <span class="material-symbols-rounded">speaker</span>
-                            <span>Deep Bass Boost</span>
-                        </div>
+                        <span class="badge badge-pro">WIDE 3D</span>
                     </button>
                 </div>
             </div>
 
             <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-val" id="stat-sr">44.1</div>
-                    <div class="stat-lbl">Sample Rate (kHz)</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-val" id="stat-format">PCM</div>
-                    <div class="stat-lbl">Output Format</div>
-                </div>
+                <div class="stat-box"><div class="stat-val" id="stat-sr">44.1</div><div class="stat-lbl">Sample Rate (kHz)</div></div>
+                <div class="stat-box"><div class="stat-val" id="stat-format">PCM</div><div class="stat-lbl">Output Format</div></div>
             </div>
         </aside>
 
         <main class="player-area">
-            
             <div class="display-container" id="display-container">
                 <video id="media-video" class="hidden"></video>
                 <img id="media-image" class="hidden" alt="Media Artwork">
                 <canvas id="visualizer-canvas"></canvas>
-
                 <div class="viz-controls" id="viz-controls">
                     <button class="viz-tab active" data-viz="fluid">Fluid Particles</button>
                     <button class="viz-tab" data-viz="bars">Neon Bars</button>
@@ -682,161 +235,103 @@
                         <span id="quality-text">Hi-Res Ready</span>
                     </div>
                 </div>
-
                 <div class="progress-wrapper">
-                    <div class="progress-track" id="progress-track">
-                        <div class="progress-fill" id="progress-fill"></div>
-                    </div>
-                    <div class="time-row">
-                        <span id="time-current">0:00</span>
-                        <span id="time-total">0:00</span>
-                    </div>
+                    <div class="progress-track" id="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+                    <div class="time-row"><span id="time-current">0:00</span><span id="time-total">0:00</span></div>
                 </div>
-
                 <div class="playback-controls">
-                    <div class="side-controls">
-                        </div>
-
+                    <div style="width: 30%;"></div>
+                    
                     <div class="center-controls">
-                        <button class="icon-btn" id="btn-shuffle" title="Shuffle">
-                            <span class="material-symbols-rounded">shuffle</span>
-                        </button>
-                        <button class="icon-btn" id="btn-prev" title="Previous">
-                            <span class="material-symbols-rounded">skip_previous</span>
-                        </button>
-                        
-                        <button class="play-pause-btn" id="btn-play">
-                            <span class="material-symbols-rounded" id="play-icon">play_arrow</span>
-                        </button>
-                        
-                        <button class="icon-btn" id="btn-next" title="Next">
-                            <span class="material-symbols-rounded">skip_next</span>
-                        </button>
-                        <button class="icon-btn" id="btn-repeat" title="Repeat">
-                            <span class="material-symbols-rounded">repeat</span>
-                        </button>
+                        <button class="icon-btn" id="btn-shuffle" title="Shuffle"><span class="material-symbols-rounded">shuffle</span></button>
+                        <button class="icon-btn" id="btn-prev" title="Previous"><span class="material-symbols-rounded">skip_previous</span></button>
+                        <button class="play-pause-btn" id="btn-play"><span class="material-symbols-rounded" id="play-icon">play_arrow</span></button>
+                        <button class="icon-btn" id="btn-next" title="Next"><span class="material-symbols-rounded">skip_next</span></button>
+                        <button class="icon-btn" id="btn-repeat" title="Repeat"><span class="material-symbols-rounded">repeat</span></button>
                     </div>
-
+                    
                     <div class="side-controls">
-                        <span class="material-symbols-rounded">volume_down</span>
-                        <div class="volume-slider-container">
-                            <input type="range" id="volume-slider" min="0" max="100" value="80">
+                        <div class="slider-row" title="Left/Right Balance">
+                            <span class="slider-label">L</span>
+                            <input type="range" id="pan-slider" min="-100" max="100" value="0">
+                            <span class="slider-label">R</span>
                         </div>
-                        <span class="material-symbols-rounded">volume_up</span>
+                        <div class="slider-row" title="Master Volume">
+                            <span class="material-symbols-rounded" style="font-size: 20px;">volume_down</span>
+                            <input type="range" id="volume-slider" min="0" max="100" value="80">
+                            <span class="material-symbols-rounded" style="font-size: 20px;">volume_up</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </main>
     </div>
 </div>
 
 <script>
-/**
- * Pro Media Player Engine (Real DSP)
- * Fixing the clipping/choppiness by utilizing a strict Audio Node Graph
- * Source -> [Effects Chain] -> Limiter -> MasterVolume -> Analyser -> Destination
- */
 class HighFidelityPlayer {
     constructor() {
-        this.files = [];
-        this.currentIndex = -1;
-        this.isPlaying = false;
-        this.volume = 0.8;
-        this.dspMode = 'flat';
-        this.vizMode = 'fluid';
+        this.files = []; this.currentIndex = -1; this.isPlaying = false; 
+        this.volume = 0.8; this.panValue = 0; // Track Pan Value
+        this.dspMode = 'flat'; this.vizMode = 'fluid';
         
-        // Media Element Setup
-        this.audioElement = new Audio();
-        this.audioElement.crossOrigin = "anonymous";
+        this.audioElement = new Audio(); this.audioElement.crossOrigin = "anonymous";
         this.videoElement = document.getElementById('media-video');
         this.imageElement = document.getElementById('media-image');
-        
-        // Active media pointer
         this.activeMedia = this.audioElement; 
 
-        // Web Audio API Context & Nodes
-        this.audioCtx = null;
-        this.sourceNode = null;
-        this.videoSourceNode = null;
-        this.masterGain = null;
-        this.limiterNode = null;
-        this.analyser = null;
-        this.effectNodes = []; // Array to hold active Biquads/Panners for easy cleanup
+        this.audioCtx = null; this.sourceNode = null; this.videoSourceNode = null;
+        this.masterGain = null; this.limiterNode = null; this.pannerNode = null; this.analyser = null;
+        this.effectNodes = []; 
 
-        // Visualization
         this.canvas = document.getElementById('visualizer-canvas');
         this.ctx = this.canvas.getContext('2d');
         this.animFrameId = null;
-        this.resizeCanvas();
-        window.addEventListener('resize', () => this.resizeCanvas());
+        this.resizeCanvas(); window.addEventListener('resize', () => this.resizeCanvas());
 
-        this.initDOM();
-        this.bindEvents();
+        this.initDOM(); this.bindEvents();
     }
 
     initDOM() {
         this.dom = {
-            uploadZone: document.getElementById('upload-zone'),
-            fileInput: document.getElementById('file-input'),
-            fileList: document.getElementById('file-list'),
-            
-            title: document.getElementById('track-title'),
-            meta: document.getElementById('track-meta'),
-            qualTag: document.getElementById('quality-tag'),
-            qualText: document.getElementById('quality-text'),
-            
-            playBtn: document.getElementById('btn-play'),
-            playIcon: document.getElementById('play-icon'),
-            prevBtn: document.getElementById('btn-prev'),
-            nextBtn: document.getElementById('btn-next'),
-            
-            progTrack: document.getElementById('progress-track'),
-            progFill: document.getElementById('progress-fill'),
-            timeCur: document.getElementById('time-current'),
-            timeTot: document.getElementById('time-total'),
-            
-            volSlider: document.getElementById('volume-slider'),
+            uploadZone: document.getElementById('upload-zone'), fileInput: document.getElementById('file-input'), fileList: document.getElementById('file-list'),
+            title: document.getElementById('track-title'), meta: document.getElementById('track-meta'),
+            qualTag: document.getElementById('quality-tag'), qualText: document.getElementById('quality-text'),
+            playBtn: document.getElementById('btn-play'), playIcon: document.getElementById('play-icon'),
+            prevBtn: document.getElementById('btn-prev'), nextBtn: document.getElementById('btn-next'),
+            progTrack: document.getElementById('progress-track'), progFill: document.getElementById('progress-fill'),
+            timeCur: document.getElementById('time-current'), timeTot: document.getElementById('time-total'),
+            volSlider: document.getElementById('volume-slider'), panSlider: document.getElementById('pan-slider'), // Added Pan UI
             dspBtns: document.querySelectorAll('.option-btn[data-dsp]'),
-            vizBtns: document.querySelectorAll('.viz-tab'),
-            
-            statSr: document.getElementById('stat-sr'),
-            fullBtn: document.getElementById('btn-fullscreen')
+            vizBtns: document.querySelectorAll('.viz-tab'), statSr: document.getElementById('stat-sr'), fullBtn: document.getElementById('btn-fullscreen')
         };
     }
 
     bindEvents() {
-        // Upload Handlers
         this.dom.uploadZone.addEventListener('click', () => this.dom.fileInput.click());
         this.dom.uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); this.dom.uploadZone.classList.add('dragover'); });
         this.dom.uploadZone.addEventListener('dragleave', () => this.dom.uploadZone.classList.remove('dragover'));
-        this.dom.uploadZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            this.dom.uploadZone.classList.remove('dragover');
-            this.handleFiles(e.dataTransfer.files);
-        });
+        this.dom.uploadZone.addEventListener('drop', (e) => { e.preventDefault(); this.dom.uploadZone.classList.remove('dragover'); this.handleFiles(e.dataTransfer.files); });
         this.dom.fileInput.addEventListener('change', (e) => this.handleFiles(e.target.files));
 
-        // Playback Core Events
         this.dom.playBtn.addEventListener('click', () => this.togglePlay());
         this.dom.prevBtn.addEventListener('click', () => this.playPrev());
         this.dom.nextBtn.addEventListener('click', () => this.playNext());
-        
-        // Progress update & seek
         this.audioElement.addEventListener('timeupdate', () => this.updateProgress());
         this.videoElement.addEventListener('timeupdate', () => this.updateProgress());
         this.audioElement.addEventListener('ended', () => this.playNext());
         this.videoElement.addEventListener('ended', () => this.playNext());
         this.dom.progTrack.addEventListener('click', (e) => this.seek(e));
 
-        // Volume & Settings
         this.dom.volSlider.addEventListener('input', (e) => this.setVolume(e.target.value / 100));
-        
+        this.dom.panSlider.addEventListener('input', (e) => this.setPan(e.target.value / 100)); // Pan Event Link
+
         this.dom.dspBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                this.dom.dspBtns.forEach(b => b.classList.remove('active', 'apple-active'));
+                this.dom.dspBtns.forEach(b => b.classList.remove('active', 'apple-active', 'alac-active'));
                 const mode = e.currentTarget.dataset.dsp;
                 if(mode === 'apple_music') e.currentTarget.classList.add('apple-active');
+                else if(mode === 'alac') e.currentTarget.classList.add('alac-active');
                 else e.currentTarget.classList.add('active');
                 this.setDSP(mode);
             });
@@ -852,22 +347,15 @@ class HighFidelityPlayer {
 
         this.dom.fullBtn.addEventListener('click', () => {
             const el = document.getElementById('display-container');
-            if (!document.fullscreenElement) el.requestFullscreen().catch(err=>{});
-            else document.exitFullscreen();
+            if (!document.fullscreenElement) el.requestFullscreen().catch(err=>{}); else document.exitFullscreen();
         });
     }
 
-    // --- File Handling ---
     handleFiles(fileList) {
         if (!fileList.length) return;
         for(let f of fileList) {
             const type = f.type.startsWith('video') ? 'video' : (f.type.startsWith('image') ? 'image' : 'audio');
-            this.files.push({
-                name: f.name,
-                url: URL.createObjectURL(f),
-                type: type,
-                size: (f.size / (1024*1024)).toFixed(1) + ' MB'
-            });
+            this.files.push({ name: f.name, url: URL.createObjectURL(f), type: type, size: (f.size / (1024*1024)).toFixed(1) + ' MB' });
         }
         this.renderFileList();
         if(this.currentIndex === -1) this.loadMedia(0);
@@ -879,102 +367,62 @@ class HighFidelityPlayer {
             const div = document.createElement('div');
             div.className = `file-item ${idx === this.currentIndex ? 'active' : ''}`;
             const icon = f.type === 'video' ? 'movie' : (f.type === 'image' ? 'image' : 'audio_file');
-            
-            div.innerHTML = `
-                <div class="file-icon"><span class="material-symbols-rounded">${icon}</span></div>
-                <div class="file-details">
-                    <span class="file-name">${f.name}</span>
-                    <span class="file-meta">${f.type.toUpperCase()} • ${f.size}</span>
-                </div>
-            `;
-            div.addEventListener('click', () => {
-                this.loadMedia(idx);
-                this.play();
-            });
+            div.innerHTML = `<div class="file-icon"><span class="material-symbols-rounded">${icon}</span></div><div class="file-details"><span class="file-name">${f.name}</span><span class="file-meta">${f.type.toUpperCase()} • ${f.size}</span></div>`;
+            div.addEventListener('click', () => { this.loadMedia(idx); this.play(); });
             this.dom.fileList.appendChild(div);
         });
     }
 
-    // --- Media Loading ---
     loadMedia(index) {
         if(index < 0 || index >= this.files.length) return;
-        this.pause();
+        this.pause(); this.currentIndex = index; const file = this.files[index];
         
-        this.currentIndex = index;
-        const file = this.files[index];
+        this.canvas.classList.add('hidden'); this.videoElement.classList.add('hidden'); this.imageElement.classList.add('hidden');
+        this.dom.title.textContent = file.name; this.dom.meta.textContent = `${file.type.toUpperCase()} • ${file.size}`;
         
-        // Reset Displays
-        this.canvas.classList.add('hidden');
-        this.videoElement.classList.add('hidden');
-        this.imageElement.classList.add('hidden');
-
-        this.dom.title.textContent = file.name;
-        this.dom.meta.textContent = `${file.type.toUpperCase()} • ${file.size}`;
-        
-        // Initialize Audio Context on first load to bypass browser auto-play policies safely
         if(!this.audioCtx) this.initAudioEngine();
 
         if (file.type === 'video') {
-            this.activeMedia = this.videoElement;
-            this.videoElement.src = file.url;
-            this.videoElement.classList.remove('hidden');
-            this.canvas.classList.remove('hidden'); // Overlay viz on video
-            this.dom.qualText.textContent = "HD Video Audio";
-            this.dom.qualTag.style.color = "var(--md-sys-color-primary)";
+            this.activeMedia = this.videoElement; this.videoElement.src = file.url;
+            this.videoElement.classList.remove('hidden'); this.canvas.classList.remove('hidden');
+            this.dom.qualText.textContent = "HD Video Audio"; this.dom.qualTag.style.color = "var(--md-sys-color-primary)";
         } else if (file.type === 'image') {
-            this.activeMedia = null; // No audio
-            this.imageElement.src = file.url;
-            this.imageElement.classList.remove('hidden');
-            this.dom.qualText.textContent = "High-Res Image";
+            this.activeMedia = null; this.imageElement.src = file.url;
+            this.imageElement.classList.remove('hidden'); this.dom.qualText.textContent = "High-Res Image";
         } else {
-            this.activeMedia = this.audioElement;
-            this.audioElement.src = file.url;
-            this.canvas.classList.remove('hidden');
-            this.dom.qualText.textContent = "Lossless Audio";
+            this.activeMedia = this.audioElement; this.audioElement.src = file.url;
+            this.canvas.classList.remove('hidden'); this.dom.qualText.textContent = "Lossless Audio";
         }
 
-        // Apply visual updates
-        document.querySelectorAll('.file-item').forEach((el, i) => {
-            el.classList.toggle('active', i === index);
-        });
-
-        // Ensure DSP chain is built for the new media
+        document.querySelectorAll('.file-item').forEach((el, i) => { el.classList.toggle('active', i === index); });
         this.buildDSPChain();
     }
 
-    // --- Core Audio Engine & DSP (The Fix) ---
     initAudioEngine() {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         this.audioCtx = new AudioContext();
-        
-        // Update stats
         this.dom.statSr.textContent = (this.audioCtx.sampleRate / 1000).toFixed(1);
 
-        // Create main fixed nodes
-        this.masterGain = this.audioCtx.createGain();
-        this.masterGain.gain.value = this.volume;
-        
-        this.analyser = this.audioCtx.createAnalyser();
-        this.analyser.fftSize = 4096; // High res
-        this.analyser.smoothingTimeConstant = 0.85;
+        // Core Nodes
+        this.masterGain = this.audioCtx.createGain(); this.masterGain.gain.value = this.volume;
+        this.pannerNode = this.audioCtx.createStereoPanner(); this.pannerNode.pan.value = this.panValue; // PAN NODE INITIATED
+        this.analyser = this.audioCtx.createAnalyser(); this.analyser.fftSize = 4096; this.analyser.smoothingTimeConstant = 0.85;
 
-        // **CRITICAL FIX: The Brickwall Limiter**
-        // This prevents the audio from clipping/distorting when heavy bass/EQ is applied.
+        // Limiter prevents aggressive EQ from breaking speakers
         this.limiterNode = this.audioCtx.createDynamicsCompressor();
-        this.limiterNode.threshold.value = -0.5; // Do not allow above -0.5dB
+        this.limiterNode.threshold.value = -1.0;
         this.limiterNode.knee.value = 0.0;
-        this.limiterNode.ratio.value = 20.0; // Hard limit
-        this.limiterNode.attack.value = 0.001; // Fast catch
+        this.limiterNode.ratio.value = 20.0; 
+        this.limiterNode.attack.value = 0.001; 
         this.limiterNode.release.value = 0.1;
 
-        // Permanent End Chain: Limiter -> MasterGain -> Analyser -> Destination
-        this.limiterNode.connect(this.masterGain);
+        // UPDATED CHAIN: Limiter -> StereoPanner -> MasterGain -> Analyser -> Output
+        this.limiterNode.connect(this.pannerNode);
+        this.pannerNode.connect(this.masterGain);
         this.masterGain.connect(this.analyser);
         this.analyser.connect(this.audioCtx.destination);
 
-        // Create Source Nodes
         this.sourceNode = this.audioCtx.createMediaElementSource(this.audioElement);
-        // Catch DOMException if video already connected
         try { this.videoSourceNode = this.audioCtx.createMediaElementSource(this.videoElement); } catch(e){}
 
         this.startVisualizer();
@@ -984,193 +432,119 @@ class HighFidelityPlayer {
         this.dspMode = mode;
         this.buildDSPChain();
         
-        // Update tag UI based on mode
         if(mode === 'apple_music') {
-            this.dom.qualText.textContent = "Apple Lossless";
+            this.dom.qualText.textContent = "Apple Mastered";
             this.dom.qualTag.style.background = "var(--apple-red-container)";
             this.dom.qualTag.style.color = "var(--apple-red)";
+        } else if (mode === 'alac') {
+            this.dom.qualText.textContent = "ALAC 24-bit Render";
+            this.dom.qualTag.style.background = "var(--alac-gold-container)";
+            this.dom.qualTag.style.color = "var(--alac-gold)";
         } else {
             this.dom.qualTag.style.background = "rgba(208, 188, 255, 0.15)";
             this.dom.qualTag.style.color = "var(--md-sys-color-primary)";
-            
-            if(mode === 'airpods') this.dom.qualText.textContent = "AirPods Optimized";
+            if(mode === 'airpods') this.dom.qualText.textContent = "AirPods Boost";
             else if(mode === 'dolby') this.dom.qualText.textContent = "Spatial Audio";
-            else this.dom.qualText.textContent = "Hi-Res Ready";
+            else this.dom.qualText.textContent = "Studio Direct";
         }
     }
 
     buildDSPChain() {
         if(!this.audioCtx) return;
 
-        // 1. Disconnect current sources and old effects
         this.sourceNode.disconnect();
         if(this.videoSourceNode) this.videoSourceNode.disconnect();
-        
         this.effectNodes.forEach(node => node.disconnect());
         this.effectNodes = [];
 
-        let currentInput = (this.activeMedia === this.videoElement && this.videoSourceNode) 
-            ? this.videoSourceNode : this.sourceNode;
-
-        // 2. Build new effect chain based on mode
+        let currentInput = (this.activeMedia === this.videoElement && this.videoSourceNode) ? this.videoSourceNode : this.sourceNode;
         let lastNode = currentInput;
 
         const addBiquad = (type, freq, gain, q = 1) => {
             const eq = this.audioCtx.createBiquadFilter();
             eq.type = type; eq.frequency.value = freq; eq.gain.value = gain; eq.Q.value = q;
-            lastNode.connect(eq);
-            lastNode = eq;
-            this.effectNodes.push(eq);
+            lastNode.connect(eq); lastNode = eq; this.effectNodes.push(eq);
         };
 
         switch(this.dspMode) {
+            case 'alac':
+                const splitA = this.audioCtx.createChannelSplitter(2);
+                const mergeA = this.audioCtx.createChannelMerger(2);
+                const delA = this.audioCtx.createDelay(); delA.delayTime.value = 0.003; 
+                const alacEq = this.audioCtx.createBiquadFilter(); alacEq.type = 'lowshelf'; alacEq.frequency.value = 50; alacEq.gain.value = 6.0; 
+                const alacHigh = this.audioCtx.createBiquadFilter(); alacHigh.type = 'highshelf'; alacHigh.frequency.value = 11000; alacHigh.gain.value = 5.0; 
+                lastNode.connect(alacEq); alacEq.connect(alacHigh); alacHigh.connect(splitA);
+                splitA.connect(mergeA, 0, 0); splitA.connect(delA, 1); delA.connect(mergeA, 0, 1); 
+                lastNode = mergeA; this.effectNodes.push(alacEq, alacHigh, splitA, mergeA, delA);
+                this.limiterNode.threshold.value = -0.5;
+                break;
             case 'apple_music':
-                // Studio Reference: Very clean, minor presence boost
-                addBiquad('lowshelf', 80, 1.5);    // Slight warmth
-                addBiquad('highshelf', 10000, 1.0); // Air
+                addBiquad('lowshelf', 65, 5.0); addBiquad('peaking', 300, -3.0, 1.2); addBiquad('highshelf', 8000, 4.0);    
+                this.limiterNode.threshold.value = -3.0; this.limiterNode.ratio.value = 4.0;
                 break;
-
             case 'airpods':
-                // Compensates for typical earbud physics
-                addBiquad('lowshelf', 120, 3.5);   // Driver bass compensation
-                addBiquad('peaking', 2500, 2.0, 0.8); // Vocal forwardness
-                addBiquad('highshelf', 8000, -1.0); // De-harsh high end
+                addBiquad('lowshelf', 80, 7.0); addBiquad('peaking', 250, -2.0, 1.0); addBiquad('peaking', 3500, 4.5, 0.8); addBiquad('highshelf', 10000, 2.0);   
+                this.limiterNode.threshold.value = -1.0;
                 break;
-
             case 'dolby':
-                // Cinematic Spatial using Haas Effect (Delay on one channel for width)
-                const splitter = this.audioCtx.createChannelSplitter(2);
-                const merger = this.audioCtx.createChannelMerger(2);
-                
-                // Route Mid/Sides for widening
-                const delayRight = this.audioCtx.createDelay();
-                delayRight.delayTime.value = 0.015; // 15ms delay is the sweet spot for Haas effect (not robotic)
-                
-                // Enhance lows and highs for cinematic feel
-                const cinemaEq = this.audioCtx.createBiquadFilter();
-                cinemaEq.type = 'lowshelf'; cinemaEq.frequency.value = 60; cinemaEq.gain.value = 4.0;
-                
-                lastNode.connect(cinemaEq);
-                cinemaEq.connect(splitter);
-                
-                // Left channel direct
-                splitter.connect(merger, 0, 0);
-                // Right channel delayed slightly
-                splitter.connect(delayRight, 1);
-                delayRight.connect(merger, 0, 1);
-                
-                lastNode = merger;
-                this.effectNodes.push(cinemaEq, splitter, delayRight, merger);
+                const splitD = this.audioCtx.createChannelSplitter(2); const mergeD = this.audioCtx.createChannelMerger(2);
+                const delD = this.audioCtx.createDelay(); delD.delayTime.value = 0.020; 
+                addBiquad('lowshelf', 55, 6.0); addBiquad('peaking', 1000, -2.0); addBiquad('highshelf', 6000, 3.0); 
+                lastNode.connect(splitD); splitD.connect(mergeD, 0, 0); splitD.connect(delD, 1); delD.connect(mergeD, 0, 1);
+                lastNode = mergeD; this.effectNodes.push(splitD, mergeD, delD);
                 break;
-
-            case 'bass_boost':
-                // Deep, distortion-free bass thanks to the Limiter
-                addBiquad('lowshelf', 70, 8.0);
-                addBiquad('peaking', 120, 2.0, 1.2); // Punch
-                break;
-                
             case 'flat':
             default:
-                // Direct connection, no extra nodes added
+                this.limiterNode.threshold.value = -0.1; 
                 break;
         }
 
-        // 3. Connect to Limiter (End of chain)
-        lastNode.connect(this.limiterNode);
+        lastNode.connect(this.limiterNode); // Connects to Limiter -> then Panner -> Master Gain
     }
 
-    // --- Playback Controls ---
     togglePlay() {
         if(!this.activeMedia) return;
         if(this.audioCtx && this.audioCtx.state === 'suspended') this.audioCtx.resume();
-
-        if(this.isPlaying) this.pause();
-        else this.play();
+        if(this.isPlaying) this.pause(); else this.play();
     }
 
     play() {
         if(!this.activeMedia) return;
-        this.activeMedia.play().then(() => {
-            this.isPlaying = true;
-            this.dom.playIcon.textContent = 'pause';
-        }).catch(e => console.error("Playback error:", e));
+        this.activeMedia.play().then(() => { this.isPlaying = true; this.dom.playIcon.textContent = 'pause'; }).catch(e => console.error(e));
     }
 
-    pause() {
-        if(!this.activeMedia) return;
-        this.activeMedia.pause();
-        this.isPlaying = false;
-        this.dom.playIcon.textContent = 'play_arrow';
+    pause() { if(!this.activeMedia) return; this.activeMedia.pause(); this.isPlaying = false; this.dom.playIcon.textContent = 'play_arrow'; }
+    playNext() { let nxt = this.currentIndex + 1; if(nxt >= this.files.length) nxt = 0; if(this.files.length > 0) { this.loadMedia(nxt); this.play(); } }
+    playPrev() { let prv = this.currentIndex - 1; if(prv < 0) prv = this.files.length - 1; if(this.files.length > 0) { this.loadMedia(prv); this.play(); } }
+    
+    setVolume(val) { this.volume = val; if(this.masterGain) this.masterGain.gain.value = val; }
+    
+    // PANNING LOGIC
+    setPan(val) { 
+        this.panValue = val; 
+        if(this.pannerNode) this.pannerNode.pan.value = val; 
     }
-
-    playNext() {
-        let nxt = this.currentIndex + 1;
-        if(nxt >= this.files.length) nxt = 0; // loop
-        if(this.files.length > 0) {
-            this.loadMedia(nxt);
-            this.play();
-        }
-    }
-
-    playPrev() {
-        let prv = this.currentIndex - 1;
-        if(prv < 0) prv = this.files.length - 1;
-        if(this.files.length > 0) {
-            this.loadMedia(prv);
-            this.play();
-        }
-    }
-
-    setVolume(val) {
-        this.volume = val;
-        if(this.masterGain) this.masterGain.gain.value = val;
-    }
-
-    seek(e) {
-        if(!this.activeMedia) return;
-        const rect = this.dom.progTrack.getBoundingClientRect();
-        const percent = (e.clientX - rect.left) / rect.width;
-        this.activeMedia.currentTime = percent * this.activeMedia.duration;
-    }
-
+    
+    seek(e) { if(!this.activeMedia) return; const rect = this.dom.progTrack.getBoundingClientRect(); const percent = (e.clientX - rect.left) / rect.width; this.activeMedia.currentTime = percent * this.activeMedia.duration; }
+    
     updateProgress() {
         if(!this.activeMedia || isNaN(this.activeMedia.duration)) return;
-        const cur = this.activeMedia.currentTime;
-        const tot = this.activeMedia.duration;
+        const cur = this.activeMedia.currentTime; const tot = this.activeMedia.duration;
         this.dom.progFill.style.width = `${(cur / tot) * 100}%`;
-        this.dom.timeCur.textContent = this.formatTime(cur);
-        this.dom.timeTot.textContent = this.formatTime(tot);
+        this.dom.timeCur.textContent = this.formatTime(cur); this.dom.timeTot.textContent = this.formatTime(tot);
     }
+    formatTime(sec) { const m = Math.floor(sec / 60); const s = Math.floor(sec % 60); return `${m}:${s < 10 ? '0' : ''}${s}`; }
 
-    formatTime(sec) {
-        const m = Math.floor(sec / 60);
-        const s = Math.floor(sec % 60);
-        return `${m}:${s < 10 ? '0' : ''}${s}`;
-    }
-
-    // --- Visualization Canvas ---
-    resizeCanvas() {
-        const cont = document.getElementById('display-container');
-        this.canvas.width = cont.clientWidth;
-        this.canvas.height = cont.clientHeight;
-    }
+    resizeCanvas() { const cont = document.getElementById('display-container'); this.canvas.width = cont.clientWidth; this.canvas.height = cont.clientHeight; }
 
     startVisualizer() {
-        const bufferLength = this.analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-        
+        const bufferLength = this.analyser.frequencyBinCount; const dataArray = new Uint8Array(bufferLength);
         const draw = () => {
             this.animFrameId = requestAnimationFrame(draw);
-            if(!this.isPlaying && this.activeMedia) return; // Keep rendering if paused but don't compute heavy math
-
+            if(!this.isPlaying && this.activeMedia) return;
             this.analyser.getByteFrequencyData(dataArray);
-            const w = this.canvas.width;
-            const h = this.canvas.height;
-            const ctx = this.ctx;
-
-            // Clear with slight trail effect
-            ctx.fillStyle = 'rgba(0,0,0,0.2)';
-            ctx.fillRect(0, 0, w, h);
+            const w = this.canvas.width; const h = this.canvas.height; const ctx = this.ctx;
+            ctx.fillStyle = 'rgba(0,0,0,0.2)'; ctx.fillRect(0, 0, w, h);
 
             if(this.vizMode === 'fluid') this.drawFluid(ctx, w, h, dataArray, bufferLength);
             else if(this.vizMode === 'bars') this.drawBars(ctx, w, h, dataArray, bufferLength);
@@ -1181,156 +555,64 @@ class HighFidelityPlayer {
     }
 
     drawBars(ctx, w, h, data, len) {
-        const barCount = 128;
-        const barW = (w / barCount) - 1;
-        let x = 0;
-        
+        const barCount = 128; const barW = (w / barCount) - 1; let x = 0;
         for(let i = 0; i < barCount; i++) {
-            // Map linearly for better visualization
-            const dataIdx = Math.floor(i * (len / 4 / barCount)); 
-            const val = data[dataIdx] / 255;
-            const barH = val * h * 0.8;
-            
-            // M3 Primary gradient
+            const dataIdx = Math.floor(i * (len / 4 / barCount)); const val = data[dataIdx] / 255; const barH = val * h * 0.8;
             const gradient = ctx.createLinearGradient(0, h, 0, h - barH);
-            gradient.addColorStop(0, '#D0BCFF');
-            gradient.addColorStop(1, '#EFB8C8');
-            
-            ctx.fillStyle = gradient;
-            
-            // Add slight glow
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = '#D0BCFF';
-            
-            // Rounded top bar
-            ctx.beginPath();
-            ctx.roundRect(x, h - barH, barW, barH, [4, 4, 0, 0]);
-            ctx.fill();
-            
+            gradient.addColorStop(0, '#D0BCFF'); gradient.addColorStop(1, '#EFB8C8');
+            ctx.fillStyle = gradient; ctx.shadowBlur = 10; ctx.shadowColor = '#D0BCFF';
+            ctx.beginPath(); ctx.roundRect(x, h - barH, barW, barH, [4, 4, 0, 0]); ctx.fill();
             x += barW + 1;
-        }
-        ctx.shadowBlur = 0; // reset
+        } ctx.shadowBlur = 0;
     }
 
     drawWave(ctx, w, h, data, len) {
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = '#D0BCFF';
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = '#D0BCFF';
-        ctx.beginPath();
-        
-        const sliceWidth = w / 256;
-        let x = 0;
-        
-        // Use time domain for true oscilloscope, but freq data creates a cool terrain
+        ctx.lineWidth = 3; ctx.strokeStyle = '#D0BCFF'; ctx.shadowBlur = 15; ctx.shadowColor = '#D0BCFF'; ctx.beginPath();
+        const sliceWidth = w / 256; let x = 0;
         for(let i = 0; i < 256; i++) {
-            const dataIdx = Math.floor(i * (len/4 / 256));
-            const v = data[dataIdx] / 128.0; 
-            const y = h/2 - (v * h/4) + (h/4);
-            
-            if(i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-            x += sliceWidth;
-        }
-        ctx.stroke();
-        ctx.shadowBlur = 0;
+            const dataIdx = Math.floor(i * (len/4 / 256)); const v = data[dataIdx] / 128.0; const y = h/2 - (v * h/4) + (h/4);
+            if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); x += sliceWidth;
+        } ctx.stroke(); ctx.shadowBlur = 0;
     }
 
     drawFluid(ctx, w, h, data, len) {
-        const cx = w / 2;
-        const cy = h / 2;
-        const radius = Math.min(w, h) * 0.2;
-        
-        // Compute average bass
-        let bassAvg = 0;
-        for(let i=0; i<10; i++) bassAvg += data[i];
-        bassAvg /= 10;
+        const cx = w / 2; const cy = h / 2; const radius = Math.min(w, h) * 0.2;
+        let bassAvg = 0; for(let i=0; i<10; i++) bassAvg += data[i]; bassAvg /= 10;
         const kickScale = 1 + (bassAvg/255)*0.3;
-
-        ctx.lineWidth = 2;
-        ctx.lineJoin = 'round';
-        
-        // Draw expanding circles based on freq bins
+        ctx.lineWidth = 2; ctx.lineJoin = 'round';
         for(let j = 0; j < 3; j++) {
-            ctx.beginPath();
-            const offset = j * 40;
-            
+            ctx.beginPath(); const offset = j * 40;
             for(let i = 0; i <= 180; i++) {
-                const dataIdx = Math.floor(i * (len/8 / 180));
-                const val = data[dataIdx] / 255;
-                const rad = radius * kickScale + (val * 100) + offset;
-                const theta = (i / 180) * Math.PI * 2;
-                
-                const x = cx + Math.cos(theta) * rad;
-                const y = cy + Math.sin(theta) * rad;
-                
-                if(i===0) ctx.moveTo(x,y);
-                else ctx.lineTo(x,y);
+                const dataIdx = Math.floor(i * (len/8 / 180)); const val = data[dataIdx] / 255;
+                const rad = radius * kickScale + (val * 100) + offset; const theta = (i / 180) * Math.PI * 2;
+                const x = cx + Math.cos(theta) * rad; const y = cy + Math.sin(theta) * rad;
+                if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
             }
-            ctx.closePath();
-            
-            ctx.strokeStyle = `hsla(${260 + j*20}, 80%, 70%, ${1 - j*0.2})`;
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = ctx.strokeStyle;
-            ctx.stroke();
-        }
-        ctx.shadowBlur = 0;
+            ctx.closePath(); ctx.strokeStyle = `hsla(${260 + j*20}, 80%, 70%, ${1 - j*0.2})`;
+            ctx.shadowBlur = 10; ctx.shadowColor = ctx.strokeStyle; ctx.stroke();
+        } ctx.shadowBlur = 0;
     }
 
     drawAppleCore(ctx, w, h, data, len) {
-        const cx = w / 2;
-        const cy = h / 2;
-        const radius = Math.min(w, h) * 0.25;
-        
-        ctx.fillStyle = 'rgba(250, 36, 60, 0.05)';
-        ctx.fillRect(0,0,w,h); // Slight red tint background
-
-        ctx.beginPath();
-        ctx.lineWidth = 4;
-        
+        const cx = w / 2; const cy = h / 2; const radius = Math.min(w, h) * 0.25;
+        ctx.fillStyle = 'rgba(250, 36, 60, 0.05)'; ctx.fillRect(0,0,w,h);
+        ctx.beginPath(); ctx.lineWidth = 4;
         const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 2);
-        gradient.addColorStop(0, '#FA243C');
-        gradient.addColorStop(1, '#FF7B89');
-        ctx.strokeStyle = gradient;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = '#FA243C';
-
-        let angle = 0;
-        const points = 120;
-        const slice = (Math.PI * 2) / points;
-
+        gradient.addColorStop(0, '#FA243C'); gradient.addColorStop(1, '#FF7B89');
+        ctx.strokeStyle = gradient; ctx.shadowBlur = 20; ctx.shadowColor = '#FA243C';
+        let angle = 0; const points = 120; const slice = (Math.PI * 2) / points;
         for(let i = 0; i <= points; i++) {
-            const dataIdx = Math.floor((i % points) * (len/6 / points));
-            const val = data[dataIdx] / 255;
-            
-            // Create a pulsating core
-            const r = radius + (val * radius);
-            const x = cx + Math.cos(angle) * r;
-            const y = cy + Math.sin(angle) * r;
-            
-            if(i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-            
-            angle += slice;
+            const dataIdx = Math.floor((i % points) * (len/6 / points)); const val = data[dataIdx] / 255;
+            const r = radius + (val * radius); const x = cx + Math.cos(angle) * r; const y = cy + Math.sin(angle) * r;
+            if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); angle += slice;
         }
-        ctx.closePath();
-        ctx.stroke();
-        
-        // Inner core
-        ctx.beginPath();
-        let bass = data[2] / 255;
-        ctx.arc(cx, cy, radius * 0.5 * (1 + bass), 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(250, 36, 60, 0.2)';
-        ctx.fill();
-        
-        ctx.shadowBlur = 0;
+        ctx.closePath(); ctx.stroke();
+        ctx.beginPath(); let bass = data[2] / 255; ctx.arc(cx, cy, radius * 0.5 * (1 + bass), 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(250, 36, 60, 0.2)'; ctx.fill(); ctx.shadowBlur = 0;
     }
 }
 
-// Init App
-document.addEventListener('DOMContentLoaded', () => {
-    window.playerEngine = new HighFidelityPlayer();
-});
+document.addEventListener('DOMContentLoaded', () => { window.playerEngine = new HighFidelityPlayer(); });
 </script>
 </body>
 </html>
